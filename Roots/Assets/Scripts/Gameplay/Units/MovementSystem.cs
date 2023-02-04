@@ -81,7 +81,7 @@ public class MovementSystem : MonoBehaviour
         yield return new WaitForSeconds(0.2f);
 
         GameCore.Instance.hexGrid.GetTileAt(hexPosition).ChangeMaterial(false);
-        GameCore.Instance.hexGrid.GetTileAt(hexPosition).team = Team.Creature;
+        
         GameCore.Instance.hexGrid.GetTileAt(hexPosition)._glowHighlight.InitOriginalMaterials();
     }
 

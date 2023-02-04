@@ -6,6 +6,8 @@ public class Player : MonoBehaviour
 {
     #region Fields
 
+    private int _currentColorOwned;
+
     private float _baseActionPoints;
 
     #endregion
@@ -25,6 +27,18 @@ public class Player : MonoBehaviour
     private void Awake()
     {
         _baseActionPoints = actionsPoints;
+
+        
+    }
+
+    private void Start()
+    {
+        UpdateColorCount();
+
+        hexAssociated.hexType = HexType.Obstacle;
+
+
+        hexAssociated.ChangeMaterial(true);
     }
 
     public void TakeAction(float cost)
@@ -42,6 +56,25 @@ public class Player : MonoBehaviour
     public void ResetActionPoints()
     {
         actionsPoints = _baseActionPoints;
+    }
+
+    private void UpdateColorCount()
+    {
+        if(GameCore.Instance.CurrentTurn >= GameCore.Instance.endGameTurn)
+        {
+            GameCore.Instance.gameCanvasManager.rootPlayerScoreText.text = "?";
+        }
+        else
+        {
+            GameCore.Instance.gameCanvasManager.rootPlayerScoreText.text = _currentColorOwned.ToString();
+        }
+    }
+
+    public void ChangeColorOwned(int amount)
+    {
+        _currentColorOwned += amount;
+
+        UpdateColorCount();
     }
 
     #endregion

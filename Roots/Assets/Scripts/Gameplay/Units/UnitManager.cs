@@ -48,6 +48,24 @@ public class UnitManager : MonoBehaviour
 
         Hex selectedHex = hexGO.GetComponent<Hex>();
 
+        if(selectedUnit.cell != null)
+        {
+            List<Vector3Int> neighbours = hexGrid.GetNeighboursFor(selectedUnit.cell.HexCoords);
+            if (neighbours.Contains(selectedHex.HexCoords) && GameCore.Instance.creaturePlayer.actionPoints >= GameCore.Instance.creaturePlayer.attackCost)
+            {
+                if(selectedHex.typeOnCase == TypeOnCase.Root)
+                {
+                    GameCore.Instance.selectionManager.HandleDestruction(selectedHex);
+                    GameCore.Instance.creaturePlayer.actionPoints -= GameCore.Instance.creaturePlayer.attackCost;
+                    ClearOldSelection();
+                    GameCore.Instance.CheckEnemiesTurnState();
+                    return;
+                }
+                
+            }
+        }
+        
+
         if (HandleHexOutOfRange(selectedHex.HexCoords) || HandleSelectedHexIsUnitHex(selectedHex.HexCoords))
             return;
 
@@ -88,6 +106,12 @@ public class UnitManager : MonoBehaviour
             }
             else
             {
+                if(selectedUnit.cell != null)
+                {
+                    selectedUnit.cell.hexType = HexType.Obstacle;
+                }
+
+                selectedUnit.cell = selectedHex;
                 movementSystem.MoveUnit(selectedUnit, this.hexGrid);
                 GameCore.Instance.creaturePlayer.actionPoints -= GameCore.Instance.creaturePlayer.movementCost;
                 GameCore.Instance.EnemiesTurn = false;

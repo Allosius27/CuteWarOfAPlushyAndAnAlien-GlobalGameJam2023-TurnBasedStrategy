@@ -4,18 +4,35 @@ using UnityEngine;
 
 public class GameCore : AllosiusDevUtilities.Singleton<GameCore>
 {
+    #region Fields
+
+    private int _currentTurn;
+
+    #endregion
+
     #region Properties
+
+    public int CurrentTurn => _currentTurn;
 
     public HexGrid hexGrid { get; protected set; }
     public UnitManager unitManager { get; protected set; }
+    public SelectionManager selectionManager { get; protected set; }
 
     public Player player { get; protected set; }
 
     public CreaturePlayer creaturePlayer { get; protected set; }
 
+    public GameCanvasManager gameCanvasManager { get; protected set; }
+
     public bool EnemiesTurn { get; set; } = false;
 
-    public List<Unit> enemies = new List<Unit>();
+    #endregion
+
+    #region UnityInspector
+
+    public int partyDuration = 15;
+
+    public int endGameTurn = 10;
 
     #endregion
 
@@ -28,6 +45,25 @@ public class GameCore : AllosiusDevUtilities.Singleton<GameCore>
 
         unitManager = FindObjectOfType<UnitManager>();
         hexGrid = FindObjectOfType<HexGrid>();
+        selectionManager = FindObjectOfType<SelectionManager>();
+
+        gameCanvasManager = FindObjectOfType<GameCanvasManager>();
+    }
+
+    private void Start()
+    {
+        UpdateTurn();
+    }
+
+    public void NewTurn()
+    {
+        _currentTurn++;
+        UpdateTurn();
+    }
+
+    public void UpdateTurn()
+    {
+        gameCanvasManager.remainingTurnsText.text = "Tours restants : " + (partyDuration - _currentTurn).ToString();
     }
 
     public void CheckEnemiesTurnState()
@@ -37,6 +73,7 @@ public class GameCore : AllosiusDevUtilities.Singleton<GameCore>
             EnemiesTurn = false;
 
             player.ResetActionPoints();
+            NewTurn();
         }
         else
         {
@@ -53,12 +90,9 @@ public class GameCore : AllosiusDevUtilities.Singleton<GameCore>
 
     public bool CheckEnemiesTurn()
     {
-        for (int i = 0; i < enemies.Count; i++)
+        if (creaturePlayer.actionPoints > 0)
         {
-            if (creaturePlayer.actionPoints > 0)
-            {
-                return true;
-            }
+            return true;
         }
 
         return false;

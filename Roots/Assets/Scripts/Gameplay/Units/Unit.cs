@@ -15,6 +15,8 @@ public class Unit : MonoBehaviour
 
     #region Properties
 
+    public Hex cell;
+
     public int MovementPoints { get => movementPoints; }
 
     #endregion
@@ -44,6 +46,14 @@ public class Unit : MonoBehaviour
         
     }
 
+    private void Start()
+    {
+        cell.hexType = HexType.Obstacle;
+
+
+        cell.ChangeMaterial(false);
+    }
+
     public void Deselect()
     {
         glowHighlight.ToggleGlow(false);
@@ -56,6 +66,7 @@ public class Unit : MonoBehaviour
 
     public void MoveThroughPath(List<Vector3> currentPath)
     {
+        Debug.Log("MoveThroughPath");
         pathPositions = new Queue<Vector3>(currentPath);
         Vector3 firstTarget = pathPositions.Dequeue();
         StartCoroutine(RotationCoroutine(firstTarget, rotationDuration));

@@ -8,6 +8,9 @@ using UnityEngine.UI;
 public class Hex : MonoBehaviour
 {
     #region Fields
+
+    private Material _initialMat;
+
     [HideInInspector] public GameObject GoOnCase;
     public GameObject PrefabAction1;
     public GameObject PrefabAction2;
@@ -55,6 +58,8 @@ public class Hex : MonoBehaviour
     }
     private void Start()
     {
+        _initialMat = meshColor.material;
+
         ListenerUI();
     }
     public int GetCost()
@@ -129,15 +134,51 @@ public class Hex : MonoBehaviour
 
     public void ChangeMaterial(bool isRacineColor)
     {
+        if(team == Team.Root)
+        {
+            GameCore.Instance.player.ChangeColorOwned(-1);
+        }
+        else if(team == Team.Creature)
+        {
+            GameCore.Instance.creaturePlayer.ChangeColorOwned(-1);
+        }
+
         if (isRacineColor)
         {
             meshColor.material = rootMat;
+            _glowHighlight.InitOriginalMaterials();
+
+            GameCore.Instance.player.ChangeColorOwned(1);
+
+            team = Team.Root;
         }
         else
         {
             meshColor.material = creatureMat;
+            _glowHighlight.InitOriginalMaterials();
+
+            GameCore.Instance.creaturePlayer.ChangeColorOwned(1);
+
+            team = Team.Creature;
         }
 
+    }
+
+    public void NeutralMaterial()
+    {
+        if (team == Team.Root)
+        {
+            GameCore.Instance.player.ChangeColorOwned(-1);
+        }
+        else if (team == Team.Creature)
+        {
+            GameCore.Instance.creaturePlayer.ChangeColorOwned(-1);
+        }
+
+        meshColor.material = _initialMat;
+        _glowHighlight.InitOriginalMaterials();
+
+        team = Team.None;
     }
 
 

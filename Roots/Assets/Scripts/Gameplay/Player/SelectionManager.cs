@@ -110,12 +110,12 @@ public class SelectionManager : MonoBehaviour
                 {
                     if (selectedHex.typeOnCase == TypeOnCase.None && GameCore.Instance.player.actionsPoints >= GameCore.Instance.player.createRootCost) // si rien sur la case dinstantiation
                     {
-                        selectedHex.ShowHideActionUI(false);
+                        //selectedHex.ShowHideActionUI(false);
                         selectedHex.GoOnCase = Instantiate(RacineGO, selectedHex.transform.position + new Vector3(0, 1, 0), Quaternion.identity);
                         selectedHex.typeOnCase = TypeOnCase.Root;
                         selectedHex.hexType = HexType.Obstacle;
 
-                        selectedHex.team = Team.Root;
+                        
                         selectedHex.ChangeMaterial(true);
                         GameCore.Instance.player.TakeAction(GameCore.Instance.player.createRootCost);
 
@@ -143,8 +143,40 @@ public class SelectionManager : MonoBehaviour
             {
                 Destroy(selectedHex.GoOnCase);
                 selectedHex.typeOnCase = TypeOnCase.None;
+                selectedHex.hexType = HexType.Default;
+
+
+                selectedHex.NeutralMaterial();
 
                 DestroyNotConnectedTiles();
+            }
+        }
+    }
+
+    public void HandleDestruction(Hex hex)
+    {
+        previousHex = selectedHex;
+
+        selectedHex = hex;
+
+        if (selectedHex.typeOnCase == TypeOnCase.Root)
+        {
+            Destroy(selectedHex.GoOnCase);
+            selectedHex.typeOnCase = TypeOnCase.None;
+            selectedHex.hexType = HexType.Default;
+
+            selectedHex.NeutralMaterial();
+
+            DestroyNotConnectedTiles();
+
+            if (unitManager.selectedUnit)
+            {
+                selectedHex.DisableHighlight();
+
+                foreach (Vector3Int neighbour in _neighbours)
+                {
+                    hexGrid.GetTileAt(neighbour).DisableHighlight();
+                }
             }
         }
     }
@@ -183,6 +215,9 @@ public class SelectionManager : MonoBehaviour
                 Hex queu = tile.Value;
                 Destroy(queu.GoOnCase);
                 queu.typeOnCase = TypeOnCase.None;
+                queu.hexType = HexType.Default;
+
+                queu.NeutralMaterial();
             }
         }
     }
