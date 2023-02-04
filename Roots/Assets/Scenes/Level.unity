@@ -7175,7 +7175,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &755318340
 PrefabInstance:
@@ -17902,13 +17902,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   previousHex: {fileID: 0}
   playerHex: {fileID: 1893377653}
-  distanceFromSource: 3.5
+  distanceFromSource: 5
   _mainCamera: {fileID: 1963412980}
   selectionMask:
     serializedVersion: 2
     m_Bits: 8
   hexGrid: {fileID: 1940009068}
-  RacineGO: {fileID: 1970862605439776447, guid: c00883a1dc406374ea3c871914fa207d, type: 3}
+  RacineGO: {fileID: 1970862605439776447, guid: 8358fb249cce6fa40abc16a9464713e3, type: 3}
 --- !u!4 &1951204976
 Transform:
   m_ObjectHideFlags: 0
@@ -19105,7 +19105,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2686882090494296138, guid: d02f1c5005c97884ca322d0ea46125e1, type: 3}
       propertyPath: m_RootOrder
-      value: 9
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 2686882090494296138, guid: d02f1c5005c97884ca322d0ea46125e1, type: 3}
       propertyPath: m_LocalPosition.x
