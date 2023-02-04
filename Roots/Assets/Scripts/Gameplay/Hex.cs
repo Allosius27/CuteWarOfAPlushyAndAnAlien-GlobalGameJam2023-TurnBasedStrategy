@@ -6,6 +6,9 @@ using UnityEngine;
 public class Hex : MonoBehaviour
 {
     #region Fields
+    public GameObject GoOnCase;
+
+    public TypeOnCase typeOnCase;
 
     private HexCoordinates _hexCoordinates;
 
@@ -42,4 +45,14 @@ public class Hex : MonoBehaviour
     }
 
     #endregion
+}
+
+
+
+public enum TypeOnCase
+{
+    None,
+    Player,
+    Root,
+    Enemy
 }

@@ -21,10 +21,10 @@ public class HexGrid : MonoBehaviour
         }
 
         List<Vector3Int> neighbours = GetNeighboursFor(new Vector3Int(0, 0, 0));
-        Debug.Log("Neighbours for (0,0,0) are:");
+        //Debug.Log("Neighbours for (0,0,0) are:");
         foreach(Vector3Int neighbourPos in neighbours)
         {
-            Debug.Log(neighbourPos);
+            //Debug.Log(neighbourPos);
         }
     }
 
@@ -58,6 +58,11 @@ public class HexGrid : MonoBehaviour
         }
         return _hexTileNeighboursDict[hexCoordinates];
 
+    }
+
+    public Dictionary<Vector3Int, Hex> GetDic()
+    {
+        return _hexTileDict;
     }
 
     #endregion

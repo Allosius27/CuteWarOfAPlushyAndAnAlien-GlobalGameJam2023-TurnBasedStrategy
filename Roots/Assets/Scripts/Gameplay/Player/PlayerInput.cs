@@ -8,6 +8,7 @@ public class PlayerInput : MonoBehaviour
     #region UnityInspector
 
     public UnityEvent<Vector3> PointerClick;
+    public UnityEvent<Vector3> PointerRightClick;
 
     #endregion
 
@@ -24,6 +25,11 @@ public class PlayerInput : MonoBehaviour
         {
             Vector3 mousePos = Input.mousePosition;
             PointerClick?.Invoke(mousePos);
+        }
+        if (Input.GetMouseButtonDown(1))
+        {
+            Vector3 mousePos = Input.mousePosition;
+            PointerRightClick?.Invoke(mousePos);
         }
     }
 
