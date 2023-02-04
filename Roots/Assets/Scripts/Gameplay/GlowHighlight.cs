@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,6 +13,9 @@ public class GlowHighlight : MonoBehaviour
 
     private bool _isGlowing = false;
 
+    private Color _validSpaceColor = Color.green;
+    private Color _originalGlowColor;
+
     #endregion
 
     #region UnityInspector
@@ -25,6 +29,7 @@ public class GlowHighlight : MonoBehaviour
     private void Awake()
     {
         PrepareMaterialDictionaries();
+        _originalGlowColor = glowMaterial.GetColor("_GlowColor");
     }
 
     private void PrepareMaterialDictionaries()
@@ -44,6 +49,7 @@ public class GlowHighlight : MonoBehaviour
                     mat = new Material(glowMaterial);
                     // By default, Unity considers a color with the property name name "_Color" to be the main color
                     mat.color = originalMaterials[i].color;
+                    _cachedGlowMaterials[mat.color] = mat;
                 }
                 newMaterials[i] = mat;
             }
@@ -51,11 +57,37 @@ public class GlowHighlight : MonoBehaviour
         }
     }
 
+    public void HighlightValidPath()
+    {
+        if (_isGlowing == false)
+            return;
+
+        foreach (Renderer renderer in _glowMaterialDictionary.Keys)
+        {
+            foreach (Material item in _glowMaterialDictionary[renderer])
+            {
+                item.SetColor("_GlowColor", _validSpaceColor);
+            }
+        }
+    }
+
+    public void ResetGlowHighlight()
+    {
+        foreach (Renderer renderer in _glowMaterialDictionary.Keys)
+        {
+            foreach (Material item in _glowMaterialDictionary[renderer])
+            {
+                item.SetColor("_GlowColor", _originalGlowColor);
+            }
+        }
+    }
+
     public void ToggleGlow()
     {
         if(_isGlowing == false)
         {
-            foreach(Renderer renderer in _originalMaterialDictionary.Keys)
+            ResetGlowHighlight();
+            foreach (Renderer renderer in _originalMaterialDictionary.Keys)
             {
                 renderer.materials = _glowMaterialDictionary[renderer];
             }

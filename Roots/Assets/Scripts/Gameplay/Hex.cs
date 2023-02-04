@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -24,6 +25,8 @@ public class Hex : MonoBehaviour
 
     [SerializeField] private GlowHighlight _glowHighlight;
 
+    [SerializeField] private HexType _hexType;
+
     #endregion
 
     #region Behaviour
@@ -34,6 +37,20 @@ public class Hex : MonoBehaviour
         _glowHighlight = GetComponent<GlowHighlight>();
     }
 
+    public int GetCost()
+        => _hexType switch
+        {
+            HexType.Difficult => 20,
+            HexType.Default => 10,
+            HexType.Road => 5,
+            _ => throw new Exception($"Hex of type {_hexType} not supported")
+        };
+
+    public bool IsObstacle()
+    {
+        return this._hexType == HexType.Obstacle;
+    }
+
     public void EnableHighlight()
     {
         _glowHighlight.ToggleGlow(true);
@@ -42,6 +59,16 @@ public class Hex : MonoBehaviour
     public void DisableHighlight()
     {
         _glowHighlight.ToggleGlow(false);
+    }
+
+    public void ResetHighlight()
+    {
+        _glowHighlight.ResetGlowHighlight();
+    }
+
+    public void HighlightPath()
+    {
+        _glowHighlight.HighlightValidPath();
     }
 
     #endregion
@@ -55,4 +82,14 @@ public enum TypeOnCase
     Player,
     Root,
     Enemy
+}
+
+public enum HexType
+{
+    None,
+    Default,
+    Difficult,
+    Road,
+    Water,
+    Obstacle,
 }

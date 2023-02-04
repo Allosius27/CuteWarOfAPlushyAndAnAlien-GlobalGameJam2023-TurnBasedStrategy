@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -60,9 +61,16 @@ public class HexGrid : MonoBehaviour
 
     }
 
+
     public Dictionary<Vector3Int, Hex> GetDic()
     {
         return _hexTileDict;
+    }
+
+    public Vector3Int GetClosestHex(Vector3 worldPosition)
+    {
+        worldPosition.y = 0;
+        return HexCoordinates.ConvertPositionToOffset(worldPosition);
     }
 
     #endregion
