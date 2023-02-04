@@ -18,7 +18,7 @@ public class UnitManager : MonoBehaviour
 
     public void HandleUnitSelected(GameObject unit)
     {
-        if (GameCore.Instance.CreaturesTurn == false)
+        if (GameCore.Instance.EnemiesTurn == false)
             return;
 
         Unit unitReference = unit.GetComponent<Unit>();
@@ -41,7 +41,7 @@ public class UnitManager : MonoBehaviour
 
     public void HandleTerrainSelected(GameObject hexGO)
     {
-        if (selectedUnit == null || GameCore.Instance.CreaturesTurn == false)
+        if (selectedUnit == null || GameCore.Instance.EnemiesTurn == false)
         {
             return;
         }
@@ -90,7 +90,7 @@ public class UnitManager : MonoBehaviour
             {
                 movementSystem.MoveUnit(selectedUnit, this.hexGrid);
                 selectedUnit.actionPoints -= selectedUnit.movementCost;
-                GameCore.Instance.CreaturesTurn = false;
+                GameCore.Instance.EnemiesTurn = false;
                 selectedUnit.MovementFinished += ResetTurn;
                 ClearOldSelection();
 
