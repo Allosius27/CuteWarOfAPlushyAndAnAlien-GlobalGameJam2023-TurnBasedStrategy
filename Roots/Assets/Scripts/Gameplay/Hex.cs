@@ -17,11 +17,28 @@ public class Hex : MonoBehaviour
 
     #endregion
 
+    #region UnityInspector
+
+    [SerializeField] private GlowHighlight _glowHighlight;
+
+    #endregion
+
     #region Behaviour
 
     private void Awake()
     {
         _hexCoordinates = GetComponent<HexCoordinates>();
+        _glowHighlight = GetComponent<GlowHighlight>();
+    }
+
+    public void EnableHighlight()
+    {
+        _glowHighlight.ToggleGlow(true);
+    }
+
+    public void DisableHighlight()
+    {
+        _glowHighlight.ToggleGlow(false);
     }
 
     #endregion
