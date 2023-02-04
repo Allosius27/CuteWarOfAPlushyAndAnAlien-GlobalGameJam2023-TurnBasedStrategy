@@ -112,6 +112,8 @@ public class SelectionManager : MonoBehaviour
                         selectedHex.typeOnCase = TypeOnCase.Root;
                         selectedHex.hexType = HexType.Obstacle;
 
+                        selectedHex.team = Team.Root;
+                        selectedHex.ChangeMaterial(true);
                         GameCore.Instance.player.TakeAction(GameCore.Instance.player.createRootCost);
 
                         return;

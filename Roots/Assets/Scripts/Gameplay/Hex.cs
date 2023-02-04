@@ -18,9 +18,12 @@ public class Hex : MonoBehaviour
     public TypeRoot typeRoot;
 
     public GameObject ActionUI;
-    public Button Action1;
-    public Button Action2;
-    public Button Action3;
+
+    public MeshRenderer meshColor;
+
+    [HideInInspector] public Button Action1;//
+    [HideInInspector] public Button Action2;//
+    [HideInInspector] public Button Action3;//
 
     private HexCoordinates _hexCoordinates;
 
@@ -38,6 +41,9 @@ public class Hex : MonoBehaviour
 
     [SerializeField] public HexType hexType;
 
+    public Material creatureMat, rootMat;
+
+    public Team team;
     #endregion
 
     #region Behaviour
@@ -121,10 +127,30 @@ public class Hex : MonoBehaviour
         typeRoot = TypeRoot.Other;
     }
 
+    public void ChangeMaterial(bool isRacineColor)
+    {
+        if (isRacineColor)
+        {
+            meshColor.material = rootMat;
+        }
+        else
+        {
+            meshColor.material = creatureMat;
+        }
+
+    }
+
 
     #endregion
 }
 
+
+public enum Team
+{
+    None,
+    Root, 
+    Creature
+}
 
 
 public enum TypeOnCase
