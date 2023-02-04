@@ -59,29 +59,6 @@ public class SelectionManager : MonoBehaviour
                 TerrainSelected?.Invoke(result);
             }
 
-            //HandleTerrainClick();
-
-            /*selectedHex.DisableHighlight();
-
-            foreach (Vector3Int neighbour in _neighbours)
-            {
-                hexGrid.GetTileAt(neighbour).DisableHighlight();
-            }
-
-            _neighbours = hexGrid.GetNeighboursFor(selectedHex.HexCoords);
-            //BFSResult bfsResult = GraphSearch.BFSGetRange(hexGrid, selectedHex.HexCoords, 20);
-            //_neighbours = new List<Vector3Int>(bfsResult.GetRangePositions());
-
-            foreach (Vector3Int neighbour in _neighbours)
-            {
-                hexGrid.GetTileAt(neighbour).EnableHighlight();
-            }
-
-            //Debug.Log($"Neighbours for {selectedHex.HexCoords} are:");
-            foreach (Vector3Int neighbourPos in _neighbours)
-            {
-                //Debug.Log(neighbourPos);
-            }*/
         }
     }
 
@@ -99,50 +76,7 @@ public class SelectionManager : MonoBehaviour
             //TerrainSelected?.Invoke(result);
             //return;
         }
-        // A refaire
-        //if (_neighbours.Contains(selectedHex.HexCoords))  // Si relier
-        //{
-        //    //Debug.Log(Vector3.Magnitude(selectedHex.HexCoords - playerHex.HexCoords));
-        //    if (Vector3.Magnitude(selectedHex.HexCoords - playerHex.HexCoords) <= distanceFromSource) // Relier a une certaine distance du player
-        //    {
-        //        if (previousHex.typeOnCase == TypeOnCase.Root || previousHex.typeOnCase == TypeOnCase.Player)  // Si a cliquer sur une racine ou player
-        //        {
-        //            if (selectedHex.typeOnCase == TypeOnCase.None) // si rien sur la case dinstantiation
-        //            {
-        //                //Debug.Log("Show Action");
-        //                selectedHex.GoOnCase = Instantiate(RacineGO, selectedHex.transform.position + new Vector3(0, 1, 0), Quaternion.identity);
-        //                selectedHex.typeOnCase = TypeOnCase.Root;
-        //                return;
-        //            }
-        //        }
-        //    }
-        //}
-
-        
-
-
-
-        //if (_neighbours.Contains(selectedHex.HexCoords) && GameCore.Instance.EnemiesTurn == false)  // Si relier
-        //{
-        //    //Debug.Log(Vector3.Magnitude(selectedHex.HexCoords - playerHex.HexCoords));
-        //    if (Vector3.Magnitude(selectedHex.HexCoords - playerHex.HexCoords) <= distanceFromSource) // Relier a une certaine distance du player
-        //    {
-        //        if (previousHex.typeOnCase == TypeOnCase.Root || previousHex.typeOnCase == TypeOnCase.Player)  // Si a cliquer sur une racine ou player
-        //        {
-        //            if (selectedHex.typeOnCase == TypeOnCase.None && GameCore.Instance.player.actionsPoints >= GameCore.Instance.player.createRootCost) // si rien sur la case dinstantiation
-        //            {
-        //                //Debug.Log("Show Action");
-        //                selectedHex.GoOnCase = Instantiate(RacineGO, selectedHex.transform.position + new Vector3(0, 1, 0), Quaternion.identity);
-        //                selectedHex.typeOnCase = TypeOnCase.Root;
-        //                selectedHex.hexType = HexType.Obstacle;
-
-        //                GameCore.Instance.player.TakeAction(GameCore.Instance.player.createRootCost);
-
-        //                return;
-        //            }
-        //        }
-        //    }
-        //}
+       
 
         selectedHex.DisableHighlight();
 
