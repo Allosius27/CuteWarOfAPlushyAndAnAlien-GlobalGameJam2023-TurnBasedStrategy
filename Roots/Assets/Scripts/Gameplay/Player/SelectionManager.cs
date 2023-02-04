@@ -56,7 +56,7 @@ public class SelectionManager : MonoBehaviour
             else
             {
                 HandleTerrainClick(result);
-                //TerrainSelected?.Invoke(result);
+                TerrainSelected?.Invoke(result);
             }
 
             //HandleTerrainClick();
@@ -96,9 +96,31 @@ public class SelectionManager : MonoBehaviour
                 hexGrid.GetTileAt(neighbour).DisableHighlight();
             }
 
-            TerrainSelected?.Invoke(result);
-            return;
+            //TerrainSelected?.Invoke(result);
+            //return;
         }
+        // A refaire
+        //if (_neighbours.Contains(selectedHex.HexCoords))  // Si relier
+        //{
+        //    //Debug.Log(Vector3.Magnitude(selectedHex.HexCoords - playerHex.HexCoords));
+        //    if (Vector3.Magnitude(selectedHex.HexCoords - playerHex.HexCoords) <= distanceFromSource) // Relier a une certaine distance du player
+        //    {
+        //        if (previousHex.typeOnCase == TypeOnCase.Root || previousHex.typeOnCase == TypeOnCase.Player)  // Si a cliquer sur une racine ou player
+        //        {
+        //            if (selectedHex.typeOnCase == TypeOnCase.None) // si rien sur la case dinstantiation
+        //            {
+        //                //Debug.Log("Show Action");
+        //                selectedHex.GoOnCase = Instantiate(RacineGO, selectedHex.transform.position + new Vector3(0, 1, 0), Quaternion.identity);
+        //                selectedHex.typeOnCase = TypeOnCase.Root;
+        //                return;
+        //            }
+        //        }
+        //    }
+        //}
+
+        
+
+
 
         if (_neighbours.Contains(selectedHex.HexCoords) && GameCore.Instance.EnemiesTurn == false)  // Si relier
         {
@@ -128,7 +150,7 @@ public class SelectionManager : MonoBehaviour
         {
             hexGrid.GetTileAt(neighbour).DisableHighlight();
         }
-        if ((selectedHex.typeOnCase == TypeOnCase.Root || selectedHex.typeOnCase == TypeOnCase.Player) && GameCore.Instance.EnemiesTurn == false)
+        if (selectedHex.typeOnCase == TypeOnCase.None )
         {
             _neighbours = hexGrid.GetNeighboursFor(selectedHex.HexCoords);
             //BFSResult bfsResult = GraphSearch.BFSGetRange(hexGrid, selectedHex.HexCoords, 20);
@@ -139,16 +161,34 @@ public class SelectionManager : MonoBehaviour
                 hexGrid.GetTileAt(neighbour).EnableHighlight();
             }
 
-            //Debug.Log($"Neighbours for {selectedHex.HexCoords} are:");
-            foreach (Vector3Int neighbourPos in _neighbours)
+            
+        }
+
+        for (int i = 0; i < _neighbours.Count; i++) // Est ce que 1 des voisins est bien relié?
+        {
+            Debug.Log(hexGrid.GetTileAt(_neighbours[i]).typeOnCase);
+            if (hexGrid.GetTileAt(_neighbours[i]).typeOnCase == TypeOnCase.Root || hexGrid.GetTileAt(_neighbours[i]).typeOnCase == TypeOnCase.Player)
             {
-                //Debug.Log(neighbourPos);
+                if (Vector3.Magnitude(selectedHex.HexCoords - playerHex.HexCoords) <= distanceFromSource) // Relier a une certaine distance du player
+                {
+                    if (selectedHex.typeOnCase == TypeOnCase.None) // si rien sur la case dinstantiation
+                    {
+                        selectedHex.ShowHideActionUI(false);
+                        selectedHex.GoOnCase = Instantiate(RacineGO, selectedHex.transform.position + new Vector3(0, 1, 0), Quaternion.identity);
+                        selectedHex.typeOnCase = TypeOnCase.Root;
+                        return;
+                    }
+                }
             }
         }
-           
+        if (selectedHex.typeOnCase==TypeOnCase.Root)
+        {
+            selectedHex.ShowHideActionUI(true);
+        }
+
     }
 
-    public void HandleRightClick(Vector3 mousePosition)
+    public void HandleRightClick(Vector3 mousePosition) //Destroy
     {
         previousHex = selectedHex;
         GameObject result;
