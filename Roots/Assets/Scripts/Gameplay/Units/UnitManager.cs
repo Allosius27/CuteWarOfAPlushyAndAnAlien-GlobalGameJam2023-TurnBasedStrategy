@@ -10,7 +10,7 @@ public class UnitManager : MonoBehaviour
     [SerializeField]
     private MovementSystem movementSystem;
 
-    public bool EnemiesTurn { get; private set; } = true;
+    
 
     [SerializeField]
     public Unit selectedUnit;
@@ -18,7 +18,7 @@ public class UnitManager : MonoBehaviour
 
     public void HandleUnitSelected(GameObject unit)
     {
-        if (EnemiesTurn == false)
+        if (GameCore.Instance.EnemiesTurn == false)
             return;
 
         Unit unitReference = unit.GetComponent<Unit>();
@@ -41,7 +41,7 @@ public class UnitManager : MonoBehaviour
 
     public void HandleTerrainSelected(GameObject hexGO)
     {
-        if (selectedUnit == null || EnemiesTurn == false)
+        if (selectedUnit == null || GameCore.Instance.EnemiesTurn == false)
         {
             return;
         }
@@ -78,19 +78,25 @@ public class UnitManager : MonoBehaviour
 
     private void HandleTargetHexSelected(Hex selectedHex)
     {
-        if (previouslySelectedHex == null || previouslySelectedHex != selectedHex)
+        if(selectedUnit.actionPoints >= selectedUnit.movementCost)
         {
-            previouslySelectedHex = selectedHex;
-            movementSystem.ShowPath(selectedHex.HexCoords, this.hexGrid);
-        }
-        else
-        {
-            movementSystem.MoveUnit(selectedUnit, this.hexGrid);
-            EnemiesTurn = false;
-            selectedUnit.MovementFinished += ResetTurn;
-            ClearOldSelection();
+            if (previouslySelectedHex == null || previouslySelectedHex != selectedHex)
+            {
+                previouslySelectedHex = selectedHex;
 
+                movementSystem.ShowPath(selectedHex.HexCoords, this.hexGrid);
+            }
+            else
+            {
+                movementSystem.MoveUnit(selectedUnit, this.hexGrid);
+                selectedUnit.actionPoints -= selectedUnit.movementCost;
+                GameCore.Instance.EnemiesTurn = false;
+                selectedUnit.MovementFinished += ResetTurn;
+                ClearOldSelection();
+
+            }
         }
+        
     }
 
     private bool HandleSelectedHexIsUnitHex(Vector3Int hexPosition)
@@ -117,6 +123,6 @@ public class UnitManager : MonoBehaviour
     private void ResetTurn(Unit selectedUnit)
     {
         selectedUnit.MovementFinished -= ResetTurn;
-        EnemiesTurn = true;
+        GameCore.Instance.CheckEnemiesTurnState();
     }
 }

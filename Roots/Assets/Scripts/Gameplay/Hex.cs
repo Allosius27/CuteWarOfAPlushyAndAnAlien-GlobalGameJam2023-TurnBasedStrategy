@@ -25,7 +25,7 @@ public class Hex : MonoBehaviour
 
     [SerializeField] private GlowHighlight _glowHighlight;
 
-    [SerializeField] private HexType _hexType;
+    [SerializeField] public HexType hexType;
 
     #endregion
 
@@ -38,17 +38,17 @@ public class Hex : MonoBehaviour
     }
 
     public int GetCost()
-        => _hexType switch
+        => hexType switch
         {
             HexType.Difficult => 20,
             HexType.Default => 10,
             HexType.Road => 5,
-            _ => throw new Exception($"Hex of type {_hexType} not supported")
+            _ => throw new Exception($"Hex of type {hexType} not supported")
         };
 
     public bool IsObstacle()
     {
-        return this._hexType == HexType.Obstacle;
+        return this.hexType == HexType.Obstacle;
     }
 
     public void EnableHighlight()

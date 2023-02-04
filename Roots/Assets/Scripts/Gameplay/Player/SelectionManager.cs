@@ -100,18 +100,22 @@ public class SelectionManager : MonoBehaviour
             return;
         }
 
-        if (_neighbours.Contains(selectedHex.HexCoords))  // Si relier
+        if (_neighbours.Contains(selectedHex.HexCoords) && GameCore.Instance.EnemiesTurn == false)  // Si relier
         {
             //Debug.Log(Vector3.Magnitude(selectedHex.HexCoords - playerHex.HexCoords));
             if (Vector3.Magnitude(selectedHex.HexCoords - playerHex.HexCoords) <= distanceFromSource) // Relier a une certaine distance du player
             {
                 if (previousHex.typeOnCase == TypeOnCase.Root || previousHex.typeOnCase == TypeOnCase.Player)  // Si a cliquer sur une racine ou player
                 {
-                    if (selectedHex.typeOnCase == TypeOnCase.None) // si rien sur la case dinstantiation
+                    if (selectedHex.typeOnCase == TypeOnCase.None && GameCore.Instance.player.actionsPoints >= GameCore.Instance.player.createRootCost) // si rien sur la case dinstantiation
                     {
                         //Debug.Log("Show Action");
                         selectedHex.GoOnCase = Instantiate(RacineGO, selectedHex.transform.position + new Vector3(0, 1, 0), Quaternion.identity);
                         selectedHex.typeOnCase = TypeOnCase.Root;
+                        selectedHex.hexType = HexType.Obstacle;
+
+                        GameCore.Instance.player.TakeAction(GameCore.Instance.player.createRootCost);
+
                         return;
                     }
                 }
@@ -124,7 +128,7 @@ public class SelectionManager : MonoBehaviour
         {
             hexGrid.GetTileAt(neighbour).DisableHighlight();
         }
-        if (selectedHex.typeOnCase == TypeOnCase.Root || selectedHex.typeOnCase == TypeOnCase.Player)
+        if ((selectedHex.typeOnCase == TypeOnCase.Root || selectedHex.typeOnCase == TypeOnCase.Player) && GameCore.Instance.EnemiesTurn == false)
         {
             _neighbours = hexGrid.GetNeighboursFor(selectedHex.HexCoords);
             //BFSResult bfsResult = GraphSearch.BFSGetRange(hexGrid, selectedHex.HexCoords, 20);

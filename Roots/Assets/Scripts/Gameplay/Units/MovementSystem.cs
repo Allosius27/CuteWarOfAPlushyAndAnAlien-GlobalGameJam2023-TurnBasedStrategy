@@ -12,6 +12,12 @@ public class MovementSystem : MonoBehaviour
 
     #endregion
 
+    #region Properties
+
+    public BFSResult MovementRange => _movementRange;
+
+    #endregion
+
     #region Behaviour
 
     public void HideRange(HexGrid hexGrid)
