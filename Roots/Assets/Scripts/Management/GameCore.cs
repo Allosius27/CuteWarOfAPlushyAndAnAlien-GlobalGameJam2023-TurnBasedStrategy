@@ -8,11 +8,11 @@ public class GameCore : AllosiusDevUtilities.Singleton<GameCore>
 
     public UnitManager unitManager { get; protected set; }
 
-    public Player playerRoot { get; protected set; }
+    public Player player { get; protected set; }
 
-    public bool CreaturesTurn { get; set; } = false;
+    public bool EnemiesTurn { get; set; } = false;
 
-    public List<Unit> creatures = new List<Unit>();
+    public List<Unit> enemies = new List<Unit>();
 
     #endregion
 
@@ -20,7 +20,7 @@ public class GameCore : AllosiusDevUtilities.Singleton<GameCore>
     {
         base.Awake();
 
-        playerRoot = FindObjectOfType<Player>();
+        player = FindObjectOfType<Player>();
 
         unitManager = FindObjectOfType<UnitManager>();
     }
@@ -29,31 +29,31 @@ public class GameCore : AllosiusDevUtilities.Singleton<GameCore>
     {
         if(CheckEnemiesTurn() == false)
         {
-            CreaturesTurn = false;
+            EnemiesTurn = false;
 
-            playerRoot.ResetActionPoints();
+            player.ResetActionPoints();
         }
         else
         {
-            CreaturesTurn = true;
+            EnemiesTurn = true;
         }
     }
 
     public void SetEnemiesTurn()
     {
-        CreaturesTurn = true;
+        EnemiesTurn = true;
 
-        for (int i = 0; i < creatures.Count; i++)
+        for (int i = 0; i < enemies.Count; i++)
         {
-            creatures[i].ResetActionPoints();
+            enemies[i].ResetActionPoints();
         }
     }
 
     public bool CheckEnemiesTurn()
     {
-        for (int i = 0; i < creatures.Count; i++)
+        for (int i = 0; i < enemies.Count; i++)
         {
-            if(creatures[i].actionPoints > 0)
+            if(enemies[i].actionPoints > 0)
             {
                 return true;
             }
