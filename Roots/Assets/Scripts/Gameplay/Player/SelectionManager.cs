@@ -66,12 +66,12 @@ public class SelectionManager : MonoBehaviour
     {
         if(unitManager.selectedUnit)
         {
-            selectedHex.DisableHighlight();
+            //selectedHex.DisableHighlight();
 
-            foreach (Vector3Int neighbour in _neighbours)
-            {
-                hexGrid.GetTileAt(neighbour).DisableHighlight();
-            }
+            //foreach (Vector3Int neighbour in _neighbours)
+            //{
+            //    hexGrid.GetTileAt(neighbour).DisableHighlight();
+            //}
 
             //TerrainSelected?.Invoke(result);
             //return;
@@ -101,18 +101,18 @@ public class SelectionManager : MonoBehaviour
         for (int i = 0; i < _neighbours.Count; i++) // Est ce que 1 des voisins est bien relié?
         {
             Debug.Log(hexGrid.GetTileAt(_neighbours[i]).typeOnCase);
-            if ((hexGrid.GetTileAt(_neighbours[i]).typeOnCase == TypeOnCase.Root || hexGrid.GetTileAt(_neighbours[i]).typeOnCase == TypeOnCase.Player) && GameCore.Instance.EnemiesTurn == false)
+            if ((hexGrid.GetTileAt(_neighbours[i]).typeOnCase == TypeOnCase.Root || hexGrid.GetTileAt(_neighbours[i]).typeOnCase == TypeOnCase.Player) && GameCore.Instance.CreaturesTurn == false)
             {
                 if (Vector3.Magnitude(selectedHex.HexCoords - playerHex.HexCoords) <= distanceFromSource) // Relier a une certaine distance du player
                 {
-                    if (selectedHex.typeOnCase == TypeOnCase.None && GameCore.Instance.player.actionsPoints >= GameCore.Instance.player.createRootCost) // si rien sur la case dinstantiation
+                    if (selectedHex.typeOnCase == TypeOnCase.None && GameCore.Instance.playerRoot.actionsPoints >= GameCore.Instance.playerRoot.createRootCost) // si rien sur la case dinstantiation
                     {
                         selectedHex.ShowHideActionUI(false);
                         selectedHex.GoOnCase = Instantiate(RacineGO, selectedHex.transform.position + new Vector3(0, 1, 0), Quaternion.identity);
                         selectedHex.typeOnCase = TypeOnCase.Root;
                         selectedHex.hexType = HexType.Obstacle;
 
-                        GameCore.Instance.player.TakeAction(GameCore.Instance.player.createRootCost);
+                        GameCore.Instance.playerRoot.TakeAction(GameCore.Instance.playerRoot.createRootCost);
 
                         return;
                     }
