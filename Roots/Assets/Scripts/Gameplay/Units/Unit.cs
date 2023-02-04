@@ -8,14 +8,14 @@ public class Unit : MonoBehaviour
 {
     #region Fields
 
-    private float _baseActionPoints;
-
     private GlowHighlight glowHighlight;
     private Queue<Vector3> pathPositions = new Queue<Vector3>();
 
     #endregion
 
     #region Properties
+
+    public Hex cell;
 
     public int MovementPoints { get => movementPoints; }
 
@@ -28,9 +28,6 @@ public class Unit : MonoBehaviour
 
     [SerializeField]
     private float movementDuration = 1, rotationDuration = 0.3f;
-
-    [SerializeField] public float actionPoints = 2f;
-    [SerializeField] public float movementCost = 1f;
 
     #endregion
 
@@ -46,12 +43,15 @@ public class Unit : MonoBehaviour
     {
         glowHighlight = GetComponent<GlowHighlight>();
 
-        _baseActionPoints = actionPoints;
+        
     }
 
-    public void ResetActionPoints()
+    private void Start()
     {
-        actionPoints = _baseActionPoints;
+        cell.hexType = HexType.Obstacle;
+
+
+        cell.ChangeMaterial(false);
     }
 
     public void Deselect()
@@ -66,6 +66,7 @@ public class Unit : MonoBehaviour
 
     public void MoveThroughPath(List<Vector3> currentPath)
     {
+        Debug.Log("MoveThroughPath");
         pathPositions = new Queue<Vector3>(currentPath);
         Vector3 firstTarget = pathPositions.Dequeue();
         StartCoroutine(RotationCoroutine(firstTarget, rotationDuration));
@@ -107,6 +108,7 @@ public class Unit : MonoBehaviour
             yield return null;
         }
         transform.position = endPosition;
+       
 
         if (pathPositions.Count > 0)
         {

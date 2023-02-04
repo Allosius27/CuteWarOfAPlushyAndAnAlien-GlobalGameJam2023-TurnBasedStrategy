@@ -32,6 +32,16 @@ public class GlowHighlight : MonoBehaviour
         _originalGlowColor = glowMaterial.GetColor("_GlowColor");
     }
 
+    public void InitOriginalMaterials()
+    {
+        _originalMaterialDictionary.Clear();
+        foreach (Renderer renderer in GetComponentsInChildren<Renderer>())
+        {
+            Material[] originalMaterials = renderer.materials;
+            _originalMaterialDictionary.Add(renderer, originalMaterials);
+        }
+    }
+
     private void PrepareMaterialDictionaries()
     {
         foreach(Renderer renderer in GetComponentsInChildren<Renderer>())

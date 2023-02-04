@@ -8,7 +8,11 @@ using UnityEngine.UI;
 public class Hex : MonoBehaviour
 {
     #region Fields
-    [HideInInspector] public GameObject GoOnCase;
+
+    private Material _initialMat;
+
+    public GameObject GoOnCase;
+
     public GameObject PrefabAction1;
     public GameObject PrefabAction2;
     public GameObject PrefabAction3;
@@ -17,10 +21,17 @@ public class Hex : MonoBehaviour
 
     public TypeRoot typeRoot;
 
+    public TypeItem typeItem;
+
+    public Team team;
+
     public GameObject ActionUI;
-    public Button Action1;
-    public Button Action2;
-    public Button Action3;
+
+    public MeshRenderer meshColor;
+
+    [HideInInspector] public Button Action1;//
+    [HideInInspector] public Button Action2;//
+    [HideInInspector] public Button Action3;//
 
     private HexCoordinates _hexCoordinates;
 
@@ -34,9 +45,11 @@ public class Hex : MonoBehaviour
 
     #region UnityInspector
 
-    [SerializeField] private GlowHighlight _glowHighlight;
+    [SerializeField] public GlowHighlight _glowHighlight;
 
     [SerializeField] public HexType hexType;
+
+    public Material creatureMat, rootMat;
 
     #endregion
 
@@ -49,6 +62,8 @@ public class Hex : MonoBehaviour
     }
     private void Start()
     {
+        _initialMat = meshColor.material;
+
         ListenerUI();
     }
     public int GetCost()
@@ -121,10 +136,66 @@ public class Hex : MonoBehaviour
         typeRoot = TypeRoot.Other;
     }
 
+    public void ChangeMaterial(bool isRacineColor)
+    {
+        if(team == Team.Root)
+        {
+            GameCore.Instance.player.ChangeColorOwned(-1);
+        }
+        else if(team == Team.Creature)
+        {
+            GameCore.Instance.creaturePlayer.ChangeColorOwned(-1);
+        }
+
+        if (isRacineColor)
+        {
+            meshColor.material = rootMat;
+            _glowHighlight.InitOriginalMaterials();
+
+            GameCore.Instance.player.ChangeColorOwned(1);
+
+            team = Team.Root;
+        }
+        else
+        {
+            meshColor.material = creatureMat;
+            _glowHighlight.InitOriginalMaterials();
+
+            GameCore.Instance.creaturePlayer.ChangeColorOwned(1);
+
+            team = Team.Creature;
+        }
+
+    }
+
+    public void NeutralMaterial()
+    {
+        if (team == Team.Root)
+        {
+            GameCore.Instance.player.ChangeColorOwned(-1);
+        }
+        else if (team == Team.Creature)
+        {
+            GameCore.Instance.creaturePlayer.ChangeColorOwned(-1);
+        }
+
+        meshColor.material = _initialMat;
+        _glowHighlight.InitOriginalMaterials();
+
+        team = Team.None;
+    }
+
 
     #endregion
 }
 
+
+public enum Team
+{
+    None,
+    Root, 
+    Creature
+}
 
 
 public enum TypeOnCase
@@ -132,7 +203,8 @@ public enum TypeOnCase
     None,
     Player,
     Root,
-    Enemy
+    Enemy,
+    Item
 }
 
 public enum HexType
@@ -151,5 +223,15 @@ public enum TypeRoot
     Attack,
     Defence,
     Other
+
+}
+
+
+public enum TypeItem
+{
+    None,
+    Mine,
+    Flaque,
+    Pixels
 
 }
