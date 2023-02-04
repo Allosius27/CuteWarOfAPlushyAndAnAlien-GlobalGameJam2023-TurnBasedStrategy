@@ -8,7 +8,7 @@ using UnityEngine.UI;
 public class Hex : MonoBehaviour
 {
     #region Fields
-    [HideInInspector] public GameObject GoOnCase;
+    public GameObject GoOnCase;
     public GameObject PrefabAction1;
     public GameObject PrefabAction2;
     public GameObject PrefabAction3;
@@ -16,6 +16,10 @@ public class Hex : MonoBehaviour
     public TypeOnCase typeOnCase;
 
     public TypeRoot typeRoot;
+
+    public TypeItem typeItem;
+
+    public Team team;
 
     public GameObject ActionUI;
 
@@ -43,7 +47,6 @@ public class Hex : MonoBehaviour
 
     public Material creatureMat, rootMat;
 
-    public Team team;
     #endregion
 
     #region Behaviour
@@ -158,7 +161,8 @@ public enum TypeOnCase
     None,
     Player,
     Root,
-    Enemy
+    Enemy,
+    Item
 }
 
 public enum HexType
@@ -177,5 +181,15 @@ public enum TypeRoot
     Attack,
     Defence,
     Other
+
+}
+
+
+public enum TypeItem
+{
+    None,
+    Mine,
+    Flaque,
+    Pixels
 
 }

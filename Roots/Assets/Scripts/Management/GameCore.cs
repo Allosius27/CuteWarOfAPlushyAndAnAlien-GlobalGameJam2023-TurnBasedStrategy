@@ -17,6 +17,12 @@ public class GameCore : AllosiusDevUtilities.Singleton<GameCore>
 
     public List<Unit> enemies = new List<Unit>();
 
+    public  Transform leftTop;
+    public  Transform rightBotom;
+    public GameObject Item;
+    public GameObject ItemFlaque;
+    public GameObject ItemPixels;
+    public GameObject ItemMine;
     #endregion
 
     protected override void Awake()
@@ -46,6 +52,7 @@ public class GameCore : AllosiusDevUtilities.Singleton<GameCore>
 
     public void SetEnemiesTurn()
     {
+        SpawnItem();
         EnemiesTurn = true;
 
         creaturePlayer.ResetActionPoints();
@@ -63,4 +70,48 @@ public class GameCore : AllosiusDevUtilities.Singleton<GameCore>
 
         return false;
     }
+
+
+    [ContextMenu("test")]
+    public void SpawnItem()
+    {
+        if (1f *100 > Random.Range(1, 100))
+        {
+            Vector3 pos = new Vector3(Random.Range(leftTop.position.x, rightBotom.position.x), 0, Random.Range(rightBotom.position.z, leftTop.position.z));
+            Vector3Int vector3Int = HexCoordinates.ConvertPositionToOffset(pos);
+            Hex actualTile = hexGrid.GetTileAt(vector3Int);
+            if (actualTile==null)
+            {
+                return;
+            }
+            pos = actualTile.transform.position + new Vector3(0, 1, 0);
+            actualTile.GoOnCase = Instantiate(Item, pos, Quaternion.identity);
+            actualTile.typeOnCase = TypeOnCase.Item;
+
+            int type = Random.Range(1, 100);
+            Debug.Log(type);
+            if (type<=33)
+            {
+                actualTile.typeItem = TypeItem.Flaque;
+            }
+            else if (type <= 66)
+            {
+                actualTile.typeItem = TypeItem.Mine;
+            }
+            else
+            {
+                actualTile.typeItem = TypeItem.Pixels;
+            }
+
+
+
+        }
+
+    }
+
+
+
+     
+
+
 }
