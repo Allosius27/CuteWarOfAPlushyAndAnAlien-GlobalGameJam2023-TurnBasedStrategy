@@ -71,6 +71,8 @@ public class UnitManager : MonoBehaviour
 
         HandleTargetHexSelected(selectedHex);
 
+
+        //Hak
     }
 
     private void PrepareUnitForMovement(Unit unitReference)
