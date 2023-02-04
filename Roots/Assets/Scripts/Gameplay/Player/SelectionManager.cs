@@ -151,6 +151,10 @@ public class SelectionManager : MonoBehaviour
                                 Vector3 pos = new Vector3(Random.Range(GameCore.Instance.leftTop.position.x, GameCore.Instance.rightBotom.position.x), 0, Random.Range(GameCore.Instance.rightBotom.position.z, GameCore.Instance.leftTop.position.z));
                                 Vector3Int vector3Int = HexCoordinates.ConvertPositionToOffset(pos);
                                 Hex actualTile = hexGrid.GetTileAt(vector3Int);
+                                if (actualTile==null)
+                                {
+                                    return;
+                                }
                                 actualTile.typeOnCase = TypeOnCase.Root;
                                 actualTile.typeItem = TypeItem.Pixels;
                                 actualTile.ChangeMaterial(true);
