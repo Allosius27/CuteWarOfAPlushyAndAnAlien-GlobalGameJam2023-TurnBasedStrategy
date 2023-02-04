@@ -55,7 +55,10 @@ public class SelectionManager : MonoBehaviour
             }
             else
             {
-                HandleTerrainClick(result);
+                if (!unitManager.selectedUnit)
+                {
+                    HandleTerrainClick(result);
+                }
                 TerrainSelected?.Invoke(result);
             }
 
