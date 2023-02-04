@@ -8,7 +8,7 @@ using UnityEngine.UI;
 public class Hex : MonoBehaviour
 {
     #region Fields
-    public GameObject GoOnCase;
+    [HideInInspector] public GameObject GoOnCase;
     public GameObject PrefabAction1;
     public GameObject PrefabAction2;
     public GameObject PrefabAction3;
