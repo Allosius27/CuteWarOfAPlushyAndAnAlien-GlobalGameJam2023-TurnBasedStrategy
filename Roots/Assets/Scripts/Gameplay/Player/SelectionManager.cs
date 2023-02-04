@@ -122,27 +122,27 @@ public class SelectionManager : MonoBehaviour
 
 
 
-        if (_neighbours.Contains(selectedHex.HexCoords) && GameCore.Instance.EnemiesTurn == false)  // Si relier
-        {
-            //Debug.Log(Vector3.Magnitude(selectedHex.HexCoords - playerHex.HexCoords));
-            if (Vector3.Magnitude(selectedHex.HexCoords - playerHex.HexCoords) <= distanceFromSource) // Relier a une certaine distance du player
-            {
-                if (previousHex.typeOnCase == TypeOnCase.Root || previousHex.typeOnCase == TypeOnCase.Player)  // Si a cliquer sur une racine ou player
-                {
-                    if (selectedHex.typeOnCase == TypeOnCase.None && GameCore.Instance.player.actionsPoints >= GameCore.Instance.player.createRootCost) // si rien sur la case dinstantiation
-                    {
-                        //Debug.Log("Show Action");
-                        selectedHex.GoOnCase = Instantiate(RacineGO, selectedHex.transform.position + new Vector3(0, 1, 0), Quaternion.identity);
-                        selectedHex.typeOnCase = TypeOnCase.Root;
-                        selectedHex.hexType = HexType.Obstacle;
+        //if (_neighbours.Contains(selectedHex.HexCoords) && GameCore.Instance.EnemiesTurn == false)  // Si relier
+        //{
+        //    //Debug.Log(Vector3.Magnitude(selectedHex.HexCoords - playerHex.HexCoords));
+        //    if (Vector3.Magnitude(selectedHex.HexCoords - playerHex.HexCoords) <= distanceFromSource) // Relier a une certaine distance du player
+        //    {
+        //        if (previousHex.typeOnCase == TypeOnCase.Root || previousHex.typeOnCase == TypeOnCase.Player)  // Si a cliquer sur une racine ou player
+        //        {
+        //            if (selectedHex.typeOnCase == TypeOnCase.None && GameCore.Instance.player.actionsPoints >= GameCore.Instance.player.createRootCost) // si rien sur la case dinstantiation
+        //            {
+        //                //Debug.Log("Show Action");
+        //                selectedHex.GoOnCase = Instantiate(RacineGO, selectedHex.transform.position + new Vector3(0, 1, 0), Quaternion.identity);
+        //                selectedHex.typeOnCase = TypeOnCase.Root;
+        //                selectedHex.hexType = HexType.Obstacle;
 
-                        GameCore.Instance.player.TakeAction(GameCore.Instance.player.createRootCost);
+        //                GameCore.Instance.player.TakeAction(GameCore.Instance.player.createRootCost);
 
-                        return;
-                    }
-                }
-            }
-        }
+        //                return;
+        //            }
+        //        }
+        //    }
+        //}
 
         selectedHex.DisableHighlight();
 
@@ -158,7 +158,7 @@ public class SelectionManager : MonoBehaviour
 
             foreach (Vector3Int neighbour in _neighbours)
             {
-                hexGrid.GetTileAt(neighbour).EnableHighlight();
+                //hexGrid.GetTileAt(neighbour).EnableHighlight();
             }
 
             
@@ -167,24 +167,28 @@ public class SelectionManager : MonoBehaviour
         for (int i = 0; i < _neighbours.Count; i++) // Est ce que 1 des voisins est bien relié?
         {
             Debug.Log(hexGrid.GetTileAt(_neighbours[i]).typeOnCase);
-            if (hexGrid.GetTileAt(_neighbours[i]).typeOnCase == TypeOnCase.Root || hexGrid.GetTileAt(_neighbours[i]).typeOnCase == TypeOnCase.Player)
+            if ((hexGrid.GetTileAt(_neighbours[i]).typeOnCase == TypeOnCase.Root || hexGrid.GetTileAt(_neighbours[i]).typeOnCase == TypeOnCase.Player) && GameCore.Instance.EnemiesTurn == false)
             {
                 if (Vector3.Magnitude(selectedHex.HexCoords - playerHex.HexCoords) <= distanceFromSource) // Relier a une certaine distance du player
                 {
-                    if (selectedHex.typeOnCase == TypeOnCase.None) // si rien sur la case dinstantiation
+                    if (selectedHex.typeOnCase == TypeOnCase.None && GameCore.Instance.player.actionsPoints >= GameCore.Instance.player.createRootCost) // si rien sur la case dinstantiation
                     {
                         selectedHex.ShowHideActionUI(false);
                         selectedHex.GoOnCase = Instantiate(RacineGO, selectedHex.transform.position + new Vector3(0, 1, 0), Quaternion.identity);
                         selectedHex.typeOnCase = TypeOnCase.Root;
+                        selectedHex.hexType = HexType.Obstacle;
+
+                        GameCore.Instance.player.TakeAction(GameCore.Instance.player.createRootCost);
+
                         return;
                     }
                 }
             }
         }
-        if (selectedHex.typeOnCase==TypeOnCase.Root)
-        {
-            selectedHex.ShowHideActionUI(true);
-        }
+        //if (selectedHex.typeOnCase==TypeOnCase.Root)
+        //{
+        //    selectedHex.ShowHideActionUI(true);
+        //}
 
     }
 
