@@ -110,10 +110,16 @@ public class UnitManager : MonoBehaviour
             {
                 if(selectedUnit.cell != null)
                 {
-                    selectedUnit.cell.hexType = HexType.Obstacle;
+                    selectedUnit.cell.hexType = HexType.Default;
                 }
 
                 selectedUnit.cell = selectedHex;
+
+                if (selectedUnit.cell != null)
+                {
+                    selectedUnit.cell.hexType = HexType.Obstacle;
+                }
+
                 movementSystem.MoveUnit(selectedUnit, this.hexGrid);
                 GameCore.Instance.creaturePlayer.actionPoints -= GameCore.Instance.creaturePlayer.movementCost;
                 GameCore.Instance.EnemiesTurn = false;
@@ -148,6 +154,7 @@ public class UnitManager : MonoBehaviour
 
     private void ResetTurn(Unit selectedUnit)
     {
+
         selectedUnit.MovementFinished -= ResetTurn;
         GameCore.Instance.CheckEnemiesTurnState();
     }
