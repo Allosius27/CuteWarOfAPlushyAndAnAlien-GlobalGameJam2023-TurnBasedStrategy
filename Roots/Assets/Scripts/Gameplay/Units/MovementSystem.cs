@@ -69,7 +69,20 @@ public class MovementSystem : MonoBehaviour
     {
         Debug.Log("Moving unit " + selectedUnit.name);
         selectedUnit.MoveThroughPath(_currentPath.Select(pos => hexGrid.GetTileAt(pos).transform.position).ToList());
+        foreach (Vector3Int hexPosition in _currentPath)
+        {
+            StartCoroutine(CoroutineColoration(hexPosition));
+        }
 
+    }
+
+    private IEnumerator CoroutineColoration(Vector3Int hexPosition)
+    {
+        yield return new WaitForSeconds(0.2f);
+
+        GameCore.Instance.hexGrid.GetTileAt(hexPosition).ChangeMaterial(false);
+        GameCore.Instance.hexGrid.GetTileAt(hexPosition).team = Team.Creature;
+        GameCore.Instance.hexGrid.GetTileAt(hexPosition)._glowHighlight.InitOriginalMaterials();
     }
 
     public bool IsHexInRange(Vector3Int hexPosition)

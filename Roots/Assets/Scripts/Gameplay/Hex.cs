@@ -37,7 +37,7 @@ public class Hex : MonoBehaviour
 
     #region UnityInspector
 
-    [SerializeField] private GlowHighlight _glowHighlight;
+    [SerializeField] public GlowHighlight _glowHighlight;
 
     [SerializeField] public HexType hexType;
 

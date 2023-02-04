@@ -6,6 +6,7 @@ public class GameCore : AllosiusDevUtilities.Singleton<GameCore>
 {
     #region Properties
 
+    public HexGrid hexGrid { get; protected set; }
     public UnitManager unitManager { get; protected set; }
 
     public Player player { get; protected set; }
@@ -23,6 +24,7 @@ public class GameCore : AllosiusDevUtilities.Singleton<GameCore>
         player = FindObjectOfType<Player>();
 
         unitManager = FindObjectOfType<UnitManager>();
+        hexGrid = FindObjectOfType<HexGrid>();
     }
 
     public void CheckEnemiesTurnState()
