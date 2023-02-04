@@ -10,7 +10,7 @@ public class UnitManager : MonoBehaviour
     [SerializeField]
     private MovementSystem movementSystem;
 
-    public bool PlayersTurn { get; private set; } = true;
+    public bool EnemiesTurn { get; private set; } = true;
 
     [SerializeField]
     public Unit selectedUnit;
@@ -18,7 +18,7 @@ public class UnitManager : MonoBehaviour
 
     public void HandleUnitSelected(GameObject unit)
     {
-        if (PlayersTurn == false)
+        if (EnemiesTurn == false)
             return;
 
         Unit unitReference = unit.GetComponent<Unit>();
@@ -41,7 +41,7 @@ public class UnitManager : MonoBehaviour
 
     public void HandleTerrainSelected(GameObject hexGO)
     {
-        if (selectedUnit == null || PlayersTurn == false)
+        if (selectedUnit == null || EnemiesTurn == false)
         {
             return;
         }
@@ -86,7 +86,7 @@ public class UnitManager : MonoBehaviour
         else
         {
             movementSystem.MoveUnit(selectedUnit, this.hexGrid);
-            PlayersTurn = false;
+            EnemiesTurn = false;
             selectedUnit.MovementFinished += ResetTurn;
             ClearOldSelection();
 
@@ -117,6 +117,6 @@ public class UnitManager : MonoBehaviour
     private void ResetTurn(Unit selectedUnit)
     {
         selectedUnit.MovementFinished -= ResetTurn;
-        PlayersTurn = true;
+        EnemiesTurn = true;
     }
 }

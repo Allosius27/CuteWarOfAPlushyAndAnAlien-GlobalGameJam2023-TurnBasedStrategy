@@ -124,21 +124,24 @@ public class SelectionManager : MonoBehaviour
         {
             hexGrid.GetTileAt(neighbour).DisableHighlight();
         }
-
-        _neighbours = hexGrid.GetNeighboursFor(selectedHex.HexCoords);
-        //BFSResult bfsResult = GraphSearch.BFSGetRange(hexGrid, selectedHex.HexCoords, 20);
-        //_neighbours = new List<Vector3Int>(bfsResult.GetRangePositions());
-
-        foreach (Vector3Int neighbour in _neighbours)
+        if (selectedHex.typeOnCase == TypeOnCase.Root || selectedHex.typeOnCase == TypeOnCase.Player)
         {
-            hexGrid.GetTileAt(neighbour).EnableHighlight();
-        }
+            _neighbours = hexGrid.GetNeighboursFor(selectedHex.HexCoords);
+            //BFSResult bfsResult = GraphSearch.BFSGetRange(hexGrid, selectedHex.HexCoords, 20);
+            //_neighbours = new List<Vector3Int>(bfsResult.GetRangePositions());
 
-        //Debug.Log($"Neighbours for {selectedHex.HexCoords} are:");
-        foreach (Vector3Int neighbourPos in _neighbours)
-        {
-            //Debug.Log(neighbourPos);
+            foreach (Vector3Int neighbour in _neighbours)
+            {
+                hexGrid.GetTileAt(neighbour).EnableHighlight();
+            }
+
+            //Debug.Log($"Neighbours for {selectedHex.HexCoords} are:");
+            foreach (Vector3Int neighbourPos in _neighbours)
+            {
+                //Debug.Log(neighbourPos);
+            }
         }
+           
     }
 
     public void HandleRightClick(Vector3 mousePosition)
