@@ -8,8 +8,6 @@ public class Unit : MonoBehaviour
 {
     #region Fields
 
-    private int _baseActionPoints;
-
     private GlowHighlight glowHighlight;
     private Queue<Vector3> pathPositions = new Queue<Vector3>();
 
@@ -29,10 +27,6 @@ public class Unit : MonoBehaviour
     [SerializeField]
     private float movementDuration = 1, rotationDuration = 0.3f;
 
-    [SerializeField] public int actionPoints = 2;
-    [SerializeField] public int attackPoints = 1;
-    [SerializeField] public int movementCost = 1;
-
     #endregion
 
     #region Events
@@ -47,12 +41,7 @@ public class Unit : MonoBehaviour
     {
         glowHighlight = GetComponent<GlowHighlight>();
 
-        _baseActionPoints = actionPoints;
-    }
-
-    public void ResetActionPoints()
-    {
-        actionPoints = _baseActionPoints;
+        
     }
 
     public void Deselect()

@@ -19314,7 +19314,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1467140687529424570, guid: 495cad4942c24204aad033b28cfe7529, type: 3}
       propertyPath: m_Name
-      value: Orc_Wolfrider
+      value: CreaturePlayer
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 495cad4942c24204aad033b28cfe7529, type: 3}

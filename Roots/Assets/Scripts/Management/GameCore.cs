@@ -11,6 +11,8 @@ public class GameCore : AllosiusDevUtilities.Singleton<GameCore>
 
     public Player player { get; protected set; }
 
+    public CreaturePlayer creaturePlayer { get; protected set; }
+
     public bool EnemiesTurn { get; set; } = false;
 
     public List<Unit> enemies = new List<Unit>();
@@ -22,6 +24,7 @@ public class GameCore : AllosiusDevUtilities.Singleton<GameCore>
         base.Awake();
 
         player = FindObjectOfType<Player>();
+        creaturePlayer = FindObjectOfType<CreaturePlayer>();
 
         unitManager = FindObjectOfType<UnitManager>();
         hexGrid = FindObjectOfType<HexGrid>();
@@ -45,17 +48,14 @@ public class GameCore : AllosiusDevUtilities.Singleton<GameCore>
     {
         EnemiesTurn = true;
 
-        for (int i = 0; i < enemies.Count; i++)
-        {
-            enemies[i].ResetActionPoints();
-        }
+        creaturePlayer.ResetActionPoints();
     }
 
     public bool CheckEnemiesTurn()
     {
         for (int i = 0; i < enemies.Count; i++)
         {
-            if(enemies[i].actionPoints > 0)
+            if (creaturePlayer.actionPoints > 0)
             {
                 return true;
             }
