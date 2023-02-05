@@ -125,6 +125,8 @@ public class SelectionManager : MonoBehaviour
                     }
                     if (selectedHex.typeOnCase == TypeOnCase.Item && GameCore.Instance.player.actionsPoints >= GameCore.Instance.player.createRootCost) // Construit root sur item
                     {
+                        GameCore.Instance.player.TakeAction(GameCore.Instance.player.createRootCost);
+
                         if (selectedHex.typeItem == TypeItem.Flaque)
                         {
                             Destroy(selectedHex.GoOnCase);
@@ -132,10 +134,9 @@ public class SelectionManager : MonoBehaviour
                             selectedHex.typeOnCase = TypeOnCase.Root;
                             selectedHex.ChangeMaterial(true);
                             List<Vector3Int> listAColorer = hexGrid.GetNeighboursFor(selectedHex.HexCoords);
-                            GameCore.Instance.player.TakeAction(GameCore.Instance.player.createRootCost);
                             for (int ii = 0; ii < listAColorer.Count; ii++)
                             {
-                                hexGrid.GetTileAt(listAColorer[ii]).typeItem = TypeItem.Flaque;
+                                hexGrid.GetTileAt(listAColorer[ii]).typeItem = TypeItem.None;
                                 hexGrid.GetTileAt(listAColorer[ii]).typeOnCase = TypeOnCase.Root;
                                 hexGrid.GetTileAt(listAColorer[ii]).ChangeMaterial(true);
                                 hexGrid.GetTileAt(listAColorer[ii]).GoOnCase = Instantiate(RacineGO, hexGrid.GetTileAt(listAColorer[ii]).transform.position + new Vector3(0, 1, 0), Quaternion.identity);
@@ -146,6 +147,7 @@ public class SelectionManager : MonoBehaviour
                             Destroy(selectedHex.GoOnCase);
                             selectedHex.GoOnCase = Instantiate(RacineGO, selectedHex.transform.position + new Vector3(0, 1, 0), Quaternion.identity);
                             selectedHex.typeOnCase = TypeOnCase.Root;
+                            selectedHex.typeItem = TypeItem.None;
                             selectedHex.ChangeMaterial(true);
 
                             for (int ii = 0; ii < 10; ii++)
@@ -158,7 +160,7 @@ public class SelectionManager : MonoBehaviour
                                     return;
                                 }
                                 actualTile.typeOnCase = TypeOnCase.Root;
-                                actualTile.typeItem = TypeItem.Pixels;
+                                actualTile.typeItem = TypeItem.None;
                                 actualTile.ChangeMaterial(true);
                             }
 
@@ -168,7 +170,7 @@ public class SelectionManager : MonoBehaviour
                             selectedHex.team = Team.Root;
                             Destroy(selectedHex.GoOnCase);
                             selectedHex.GoOnCase = Instantiate(RacineGO, selectedHex.transform.position + new Vector3(0, 1, 0), Quaternion.identity);
-
+                            selectedHex.typeItem = TypeItem.None;
                         }
 
 
