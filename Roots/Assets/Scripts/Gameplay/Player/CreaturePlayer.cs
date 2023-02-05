@@ -22,6 +22,7 @@ public class CreaturePlayer : MonoBehaviour
     public Image image3;
     public Image image4;
 
+    bool start = true;
 
     private void Awake()
     {
@@ -44,7 +45,7 @@ public class CreaturePlayer : MonoBehaviour
 
     private void Update()
     {
-        SetActionUI(actionPoints);
+        SetActionUI(actionPoints, start);
     }
 
     public void ResetActionPoints()
@@ -73,9 +74,13 @@ public class CreaturePlayer : MonoBehaviour
 
 
 
-    public void SetActionUI(int number)
+    public void SetActionUI(int number, bool start)
     {
-        Canvas.SetActive(true);
+        if (GameCore.Instance.player.actionsPoints==0)
+        {
+            start = false;
+        }
+        Canvas.SetActive(!start);
         Canvas.transform.rotation = Quaternion.Euler(51, 0, 0);
 
         if (number == 4)
