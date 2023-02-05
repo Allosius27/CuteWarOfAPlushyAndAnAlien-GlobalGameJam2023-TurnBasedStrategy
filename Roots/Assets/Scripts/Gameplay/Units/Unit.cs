@@ -23,6 +23,8 @@ public class Unit : MonoBehaviour
 
     #region UnityInspector
 
+    [SerializeField] public bool isActive = true;
+
     [SerializeField]
     private int movementPoints = 20;
 
@@ -46,12 +48,22 @@ public class Unit : MonoBehaviour
         
     }
 
-    private void Start()
+    public virtual void Start()
     {
-        cell.hexType = HexType.Obstacle;
+        CreaturePlayer creaturePlayer = GetComponent<CreaturePlayer>();
+
+        if(creaturePlayer != null)
+        {
+            cell.hexType = HexType.Obstacle;
 
 
-        cell.ChangeMaterial(false);
+            cell.ChangeMaterial(false);
+        }
+    }
+
+    public virtual void UnlockCreature()
+    {
+        
     }
 
     public void Deselect()

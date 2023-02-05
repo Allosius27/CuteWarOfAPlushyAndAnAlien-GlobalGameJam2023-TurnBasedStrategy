@@ -23,6 +23,30 @@ public class UnitManager : MonoBehaviour
 
         Unit unitReference = unit.GetComponent<Unit>();
 
+        Debug.Log(unitReference);
+
+        if (selectedUnit != null && selectedUnit.cell != null)
+        {
+            List<Vector3Int> neighbours = hexGrid.GetNeighboursFor(selectedUnit.cell.HexCoords);
+            if (unitReference.cell != null && neighbours.Contains(unitReference.cell.HexCoords) && GameCore.Instance.creaturePlayer.actionPoints >= GameCore.Instance.creaturePlayer.attackCost)
+            {
+                if (unitReference is CreatureMovable)
+                {
+                    unitReference.UnlockCreature();
+                    GameCore.Instance.creaturePlayer.actionPoints -= GameCore.Instance.creaturePlayer.attackCost;
+                    ClearOldSelection();
+                    GameCore.Instance.CheckEnemiesTurnState();
+                    return;
+                }
+
+            }
+        }
+
+        if (unitReference.isActive == false)
+        {
+            return;
+        }
+
         if (CheckIfTheSameUnitSelected(unitReference))
             return;
 
