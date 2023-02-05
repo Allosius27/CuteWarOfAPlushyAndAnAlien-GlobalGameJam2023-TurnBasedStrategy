@@ -8,4 +8,14 @@ public class GameCanvasManager : MonoBehaviour
     public TextMeshProUGUI creaturePlayerScoreText;
     public TextMeshProUGUI rootPlayerScoreText;
     public TextMeshProUGUI remainingTurnsText;
+
+    public void RetryButton()
+    {
+
+    }
+
+    public void QuitButton()
+    {
+
+    }
 }
