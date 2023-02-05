@@ -113,11 +113,12 @@ public class GameCore : AllosiusDevUtilities.Singleton<GameCore>
             Vector3 pos = new Vector3(Random.Range(leftTop.position.x, rightBotom.position.x), 0, Random.Range(rightBotom.position.z, leftTop.position.z));
             Vector3Int vector3Int = HexCoordinates.ConvertPositionToOffset(pos);
             Hex actualTile = hexGrid.GetTileAt(vector3Int);
-            if (actualTile==null || actualTile.typeOnCase==TypeOnCase.Player || actualTile.typeOnCase==TypeOnCase.Enemy)
+            if (actualTile == null || actualTile.typeOnCase == TypeOnCase.Player || actualTile.typeOnCase == TypeOnCase.Enemy || actualTile.typeOnCase == TypeOnCase.Root || actualTile.team == Team.Creature || actualTile.team == Team.Root)
             {
+                SpawnItem();
                 return;
             }
-            pos = actualTile.transform.position + new Vector3(0, 1, 0);
+                pos = actualTile.transform.position + new Vector3(0, 1, 0);
             actualTile.GoOnCase = Instantiate(Item, pos, Quaternion.identity);
             actualTile.typeOnCase = TypeOnCase.Item;
 
