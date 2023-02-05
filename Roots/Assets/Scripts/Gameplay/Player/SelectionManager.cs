@@ -47,6 +47,8 @@ public class SelectionManager : MonoBehaviour
         GameObject result;
         if(FindTarget(mousePosition, out result))
         {
+            Debug.Log("Find Target " + result.name);
+
             selectedHex = result.GetComponent<Hex>();
 
             if (UnitSelected(result))
@@ -187,6 +189,7 @@ public class SelectionManager : MonoBehaviour
         GameObject result;
         if (FindTarget(mousePosition, out result))
         {
+            Debug.Log("Find Target " + result.name);
             selectedHex = result.GetComponent<Hex>();
 
             if (selectedHex.typeOnCase == TypeOnCase.Root)
