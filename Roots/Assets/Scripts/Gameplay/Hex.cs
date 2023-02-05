@@ -16,6 +16,7 @@ public class Hex : MonoBehaviour
     public GameObject PrefabAction1;
     public GameObject PrefabAction2;
     public GameObject PrefabAction3;
+    public List<MeshRenderer> CotonGO = new List<MeshRenderer>();
 
     public TypeOnCase typeOnCase;
 
@@ -168,12 +169,23 @@ public class Hex : MonoBehaviour
             _glowHighlight.InitOriginalMaterials();
 
             GameCore.Instance.player.ChangeColorOwned(1);
-
+            for (int i = 0; i < CotonGO.Count; i++)
+            {
+                CotonGO[i].enabled = false;
+            }
+           
             team = Team.Root;
         }
         else
         {
-            meshColor.material = creatureMat;
+            //meshColor.material = creatureMat;
+            //(CotonGO, transform.position + new Vector3(0, 1, 0), Quaternion.identity);
+
+            for (int i = 0; i < CotonGO.Count; i++)
+            {
+                CotonGO[i].enabled = true;
+            }
+
             _glowHighlight.InitOriginalMaterials();
 
             GameCore.Instance.creaturePlayer.ChangeColorOwned(1);
@@ -196,6 +208,11 @@ public class Hex : MonoBehaviour
 
         meshColor.material = _initialMat;
         _glowHighlight.InitOriginalMaterials();
+
+        for (int i = 0; i < CotonGO.Count; i++)
+        {
+            CotonGO[i].enabled = false;
+        }
 
         team = Team.None;
     }
