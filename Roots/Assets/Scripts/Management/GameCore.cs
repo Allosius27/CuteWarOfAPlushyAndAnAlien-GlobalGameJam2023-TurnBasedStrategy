@@ -26,6 +26,8 @@ public class GameCore : AllosiusDevUtilities.Singleton<GameCore>
 
     public bool EnemiesTurn { get; set; } = false;
 
+    public bool gameEnded { get; set; } = false;
+
     #endregion
 
     #region UnityInspector
@@ -40,6 +42,7 @@ public class GameCore : AllosiusDevUtilities.Singleton<GameCore>
     public GameObject ItemFlaque;
     public GameObject ItemPixels;
     public GameObject ItemMine;
+
     #endregion
 
     protected override void Awake()

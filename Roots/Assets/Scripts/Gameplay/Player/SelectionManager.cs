@@ -43,6 +43,13 @@ public class SelectionManager : MonoBehaviour
 
     public void HandleClick(Vector3 mousePosition)
     {
+        if(GameCore.Instance.gameEnded)
+        {
+            return;
+        }
+
+
+
         previousHex = selectedHex;
         GameObject result;
         if(FindTarget(mousePosition, out result))
