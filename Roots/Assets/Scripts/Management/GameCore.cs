@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Sirenix.OdinInspector;
 
 public class GameCore : AllosiusDevUtilities.Singleton<GameCore>
 {
@@ -64,9 +65,21 @@ public class GameCore : AllosiusDevUtilities.Singleton<GameCore>
         UpdateTurn();
     }
 
+    [Button(ButtonSizes.Medium)]
     public void NewTurn()
     {
         _currentTurn++;
+
+        if(_currentTurn >= partyDuration)
+        {
+            _currentTurn = partyDuration;
+
+            gameEnded = true;
+
+            bool equality = player.CurrentColorOwned == creaturePlayer.CurrentColorOwned;
+            gameCanvasManager.SetEndGame(player.CurrentColorOwned > creaturePlayer.CurrentColorOwned, equality);
+        }
+
         UpdateTurn();
     }
 

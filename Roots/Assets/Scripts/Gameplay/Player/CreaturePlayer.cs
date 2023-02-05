@@ -9,6 +9,8 @@ public class CreaturePlayer : MonoBehaviour
 
     private int _baseActionPoints;
 
+    public int CurrentColorOwned => _currentColorOwned;
+
     [SerializeField] public int actionPoints = 2;
     //[SerializeField] public int attackPoints = 1;
     [SerializeField] public int movementCost = 1;

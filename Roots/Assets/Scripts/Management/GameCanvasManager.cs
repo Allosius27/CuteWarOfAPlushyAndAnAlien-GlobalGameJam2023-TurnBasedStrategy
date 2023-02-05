@@ -24,9 +24,16 @@ public class GameCanvasManager : MonoBehaviour
     public TextMeshProUGUI creaturePlayerNumberColor;
     public TextMeshProUGUI rootPlayerNumberColor;
 
-    public void SetEndGame(bool rootVictory)
+    public void SetEndGame(bool rootVictory, bool equality)
     {
         endGamePanel.SetActive(true);
+
+        if(equality)
+        {
+            victoryPortrait.gameObject.SetActive(false);
+            rootPlayerNumberColor.gameObject.SetActive(false);
+            creaturePlayerNumberColor.gameObject.SetActive(false);
+        }
 
         if(rootVictory)
         {

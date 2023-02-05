@@ -13,6 +13,12 @@ public class Player : MonoBehaviour
 
     #endregion
 
+    #region Properties
+
+    public int CurrentColorOwned => _currentColorOwned;
+
+    #endregion
+
     #region UnityInspector
 
     public float actionsPoints = 3f;
