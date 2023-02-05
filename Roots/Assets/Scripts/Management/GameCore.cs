@@ -124,13 +124,9 @@ public class GameCore : AllosiusDevUtilities.Singleton<GameCore>
 
             int type = Random.Range(1, 100);
             Debug.Log(type);
-            if (type<=33)
+            if (type<=50)
             {
                 actualTile.typeItem = TypeItem.Flaque;
-            }
-            else if (type <= 66)
-            {
-                actualTile.typeItem = TypeItem.Mine;
             }
             else
             {
