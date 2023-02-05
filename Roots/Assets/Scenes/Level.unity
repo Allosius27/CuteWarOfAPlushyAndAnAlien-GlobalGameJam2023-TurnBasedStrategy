@@ -19533,10 +19533,6 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3163422867887131748, guid: 1ad450865b70c0a4fa54efae1362bb97, type: 3}
-      propertyPath: GoMine
-      value: 
-      objectReference: {fileID: 1970862605439776447, guid: a311bfdae8c786048a3c4ec382cde656, type: 3}
-    - target: {fileID: 3163422867887131748, guid: 1ad450865b70c0a4fa54efae1362bb97, type: 3}
       propertyPath: hexGrid
       value: 
       objectReference: {fileID: 1066361878}

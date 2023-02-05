@@ -60,6 +60,23 @@ public class UnitManager : MonoBehaviour
             ClearOldSelection();
             return true;
         }
+
+        //if (GameCore.Instance.EnemiesTurn)
+        //{
+        //    if (this.selectedUnit == unitReference || GameCore.Instance.creaturePlayer.unitsOwned.Contains(unitReference))
+        //    {
+        //        ClearOldSelection();
+        //        return true;
+        //    }
+        //}
+        //else
+        //{
+        //    if (this.selectedUnit == unitReference)
+        //    {
+        //        ClearOldSelection();
+        //        return true;
+        //    }
+        //}
         return false;
     }
 
