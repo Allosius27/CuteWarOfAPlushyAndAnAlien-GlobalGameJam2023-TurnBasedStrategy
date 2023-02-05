@@ -205,12 +205,15 @@ public class UnitManager : MonoBehaviour
                 selectedHex.team = Team.Creature;
                 selectedHex.ChangeMaterial(false);
                 List<Vector3Int> listAColorer = hexGrid.GetNeighboursFor(selectedHex.HexCoords);
+                GameCore.Instance.creaturePlayer.ChangeColorOwned(1);
+
                 for (int ii = 0; ii < listAColorer.Count; ii++)
                 {
                     hexGrid.GetTileAt(listAColorer[ii]).typeItem = TypeItem.None;
                     hexGrid.GetTileAt(listAColorer[ii]).typeOnCase = TypeOnCase.None;
                     hexGrid.GetTileAt(listAColorer[ii]).team = Team.Creature;
                     hexGrid.GetTileAt(listAColorer[ii]).ChangeMaterial(false);
+                    GameCore.Instance.creaturePlayer.ChangeColorOwned(1);
                 }
             }
             else if (selectedHex.typeItem == TypeItem.Pixels)
@@ -220,9 +223,12 @@ public class UnitManager : MonoBehaviour
                 selectedHex.typeItem = TypeItem.None;
                 selectedHex.team = Team.Creature;
                 selectedHex.ChangeMaterial(false);
+                GameCore.Instance.creaturePlayer.ChangeColorOwned(1);
 
                 for (int ii = 0; ii < 10; ii++)
                 {
+                    GameCore.Instance.creaturePlayer.ChangeColorOwned(1);
+
                     Vector3 pos = new Vector3(Random.Range(GameCore.Instance.leftTop.position.x, GameCore.Instance.rightBotom.position.x), 0, Random.Range(GameCore.Instance.rightBotom.position.z, GameCore.Instance.leftTop.position.z));
                     Vector3Int vector3Int = HexCoordinates.ConvertPositionToOffset(pos);
                     Hex actualTile = hexGrid.GetTileAt(vector3Int);

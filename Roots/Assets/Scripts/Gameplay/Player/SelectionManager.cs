@@ -162,7 +162,7 @@ public class SelectionManager : MonoBehaviour
                             selectedHex.typeOnCase = TypeOnCase.Root;
                             selectedHex.typeItem = TypeItem.None;
                             selectedHex.ChangeMaterial(true);
-
+                            GameCore.Instance.player.ChangeColorOwned(1);
                             for (int ii = 0; ii < 10; ii++)
                             {
                                 Vector3 pos = new Vector3(Random.Range(GameCore.Instance.leftTop.position.x, GameCore.Instance.rightBotom.position.x), 0, Random.Range(GameCore.Instance.rightBotom.position.z, GameCore.Instance.leftTop.position.z));
@@ -175,6 +175,8 @@ public class SelectionManager : MonoBehaviour
                                 actualTile.typeOnCase = TypeOnCase.Root;
                                 actualTile.typeItem = TypeItem.None;
                                 actualTile.ChangeMaterial(true);
+                                GameCore.Instance.player.ChangeColorOwned(1);
+
                             }
 
                         }
