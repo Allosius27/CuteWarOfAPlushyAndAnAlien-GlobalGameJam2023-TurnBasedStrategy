@@ -28805,6 +28805,10 @@ PrefabInstance:
       propertyPath: cell
       value: 
       objectReference: {fileID: 1234281770}
+    - target: {fileID: 520319954418169939, guid: 495cad4942c24204aad033b28cfe7529, type: 3}
+      propertyPath: movementPoints
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 1416157730579650426, guid: 495cad4942c24204aad033b28cfe7529, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -28877,6 +28881,10 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 57fd7ebed6153574c85fcb0224178ef5, type: 2}
+    - target: {fileID: 6015178101075081430, guid: 495cad4942c24204aad033b28cfe7529, type: 3}
+      propertyPath: actionPoints
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 9028084354659599390, guid: 495cad4942c24204aad033b28cfe7529, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
