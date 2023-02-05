@@ -48,7 +48,7 @@ public class Player : MonoBehaviour
     }
     private void Update()
     {
-       // SetActionUI(actionsPoints);
+       SetActionUI(actionsPoints);
     }
 
     public void TakeAction(float cost)

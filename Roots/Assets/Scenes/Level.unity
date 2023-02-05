@@ -19743,6 +19743,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1772397083, guid: 495cad4942c24204aad033b28cfe7529, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 520319954418169939, guid: 495cad4942c24204aad033b28cfe7529, type: 3}
       propertyPath: cell
       value: 
