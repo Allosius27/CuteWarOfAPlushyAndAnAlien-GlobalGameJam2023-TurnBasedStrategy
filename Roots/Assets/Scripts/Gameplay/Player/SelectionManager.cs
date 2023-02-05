@@ -113,22 +113,27 @@ public class SelectionManager : MonoBehaviour
         for (int i = 0; i < _neighbours.Count; i++) // Est ce que 1 des voisins est bien relié?
         {
             //Debug.Log(hexGrid.GetTileAt(_neighbours[i]).typeOnCase);
+            
             if ((hexGrid.GetTileAt(_neighbours[i]).typeOnCase == TypeOnCase.Root || hexGrid.GetTileAt(_neighbours[i]).typeOnCase == TypeOnCase.Player) && GameCore.Instance.EnemiesTurn == false)
             {
                 if (Vector3.Magnitude(selectedHex.HexCoords - playerHex.HexCoords) <= distanceFromSource) // Relier a une certaine distance du player
                 {
                     if (selectedHex.typeOnCase == TypeOnCase.None && GameCore.Instance.player.actionsPoints >= GameCore.Instance.player.createRootCost) // si rien sur la case dinstantiation
                     {
-                        //selectedHex.ShowHideActionUI(false);
-                        selectedHex.GoOnCase = Instantiate(RacineGO, selectedHex.transform.position + new Vector3(0, 1, 0), Quaternion.identity);
-                        selectedHex.typeOnCase = TypeOnCase.Root;
-                        selectedHex.hexType = HexType.Obstacle;
+                        if (selectedHex != GameCore.Instance.creaturePlayer.gameObject.GetComponent<Unit>().cell)
+                        {
+                            //selectedHex.ShowHideActionUI(false);
+                            selectedHex.GoOnCase = Instantiate(RacineGO, selectedHex.transform.position + new Vector3(0, 1, 0), Quaternion.identity);
+                            selectedHex.typeOnCase = TypeOnCase.Root;
+                            selectedHex.hexType = HexType.Obstacle;
 
-                        
-                        selectedHex.ChangeMaterial(true);
-                        GameCore.Instance.player.TakeAction(GameCore.Instance.player.createRootCost);
 
-                        return;
+                            selectedHex.ChangeMaterial(true);
+                            GameCore.Instance.player.TakeAction(GameCore.Instance.player.createRootCost);
+
+                            return;
+                        }
+                            
                     }
                     if (selectedHex.typeOnCase == TypeOnCase.Item && GameCore.Instance.player.actionsPoints >= GameCore.Instance.player.createRootCost) // Construit root sur item
                     {
@@ -163,7 +168,7 @@ public class SelectionManager : MonoBehaviour
                                 Vector3 pos = new Vector3(Random.Range(GameCore.Instance.leftTop.position.x, GameCore.Instance.rightBotom.position.x), 0, Random.Range(GameCore.Instance.rightBotom.position.z, GameCore.Instance.leftTop.position.z));
                                 Vector3Int vector3Int = HexCoordinates.ConvertPositionToOffset(pos);
                                 Hex actualTile = hexGrid.GetTileAt(vector3Int);
-                                if (actualTile==null)
+                                if (actualTile == null)
                                 {
                                     return;
                                 }
@@ -173,12 +178,13 @@ public class SelectionManager : MonoBehaviour
                             }
 
                         }
-                        
 
 
+
+                        }
                     }
                 }
-            }
+            
         }
         //if (selectedHex.typeOnCase==TypeOnCase.Root)
         //{
