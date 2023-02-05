@@ -26,6 +26,8 @@ public class GameCore : AllosiusDevUtilities.Singleton<GameCore>
 
     public bool EnemiesTurn { get; set; } = false;
 
+    public bool gameEnded { get; set; } = false;
+
     #endregion
 
     #region UnityInspector
@@ -40,6 +42,7 @@ public class GameCore : AllosiusDevUtilities.Singleton<GameCore>
     public GameObject ItemFlaque;
     public GameObject ItemPixels;
     public GameObject ItemMine;
+
     #endregion
 
     protected override void Awake()
@@ -106,7 +109,6 @@ public class GameCore : AllosiusDevUtilities.Singleton<GameCore>
     }
 
 
-    [ContextMenu("test")]
     public void SpawnItem()
     {
         if (1f *100 > Random.Range(1, 100))
@@ -114,23 +116,20 @@ public class GameCore : AllosiusDevUtilities.Singleton<GameCore>
             Vector3 pos = new Vector3(Random.Range(leftTop.position.x, rightBotom.position.x), 0, Random.Range(rightBotom.position.z, leftTop.position.z));
             Vector3Int vector3Int = HexCoordinates.ConvertPositionToOffset(pos);
             Hex actualTile = hexGrid.GetTileAt(vector3Int);
-            if (actualTile==null)
+            if (actualTile == null || actualTile.typeOnCase == TypeOnCase.Player || actualTile.typeOnCase == TypeOnCase.Enemy || actualTile.typeOnCase == TypeOnCase.Root || actualTile.team == Team.Creature || actualTile.team == Team.Root)
             {
+                SpawnItem();
                 return;
             }
-            pos = actualTile.transform.position + new Vector3(0, 1, 0);
+                pos = actualTile.transform.position + new Vector3(0, 1, 0);
             actualTile.GoOnCase = Instantiate(Item, pos, Quaternion.identity);
             actualTile.typeOnCase = TypeOnCase.Item;
 
             int type = Random.Range(1, 100);
             Debug.Log(type);
-            if (type<=33)
+            if (type<=50)
             {
                 actualTile.typeItem = TypeItem.Flaque;
-            }
-            else if (type <= 66)
-            {
-                actualTile.typeItem = TypeItem.Mine;
             }
             else
             {

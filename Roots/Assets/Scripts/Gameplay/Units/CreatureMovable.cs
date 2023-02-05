@@ -16,7 +16,9 @@ public class CreatureMovable : Unit
             mats[i].renderer.material = mats[i].matToApplied;
         }
 
-        if(GameCore.Instance.creaturePlayer.unitsOwned.Contains(this) == false)
+        glowHighlight.InitOriginalMaterials();
+
+        if (GameCore.Instance.creaturePlayer.unitsOwned.Contains(this) == false)
         {
             GameCore.Instance.creaturePlayer.unitsOwned.Add(this);
         }

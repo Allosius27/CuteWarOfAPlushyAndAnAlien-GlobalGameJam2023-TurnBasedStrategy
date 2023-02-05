@@ -8,7 +8,7 @@ public class Unit : MonoBehaviour
 {
     #region Fields
 
-    private GlowHighlight glowHighlight;
+    public GlowHighlight glowHighlight { get; protected set; }
     private Queue<Vector3> pathPositions = new Queue<Vector3>();
 
     #endregion

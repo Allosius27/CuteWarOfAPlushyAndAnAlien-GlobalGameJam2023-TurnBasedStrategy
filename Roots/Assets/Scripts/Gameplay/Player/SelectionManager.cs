@@ -43,6 +43,13 @@ public class SelectionManager : MonoBehaviour
 
     public void HandleClick(Vector3 mousePosition)
     {
+        if(GameCore.Instance.gameEnded)
+        {
+            return;
+        }
+
+
+
         previousHex = selectedHex;
         GameObject result;
         if(FindTarget(mousePosition, out result))
@@ -132,6 +139,7 @@ public class SelectionManager : MonoBehaviour
                             Destroy(selectedHex.GoOnCase);
                             selectedHex.GoOnCase = Instantiate(RacineGO, selectedHex.transform.position + new Vector3(0, 1, 0), Quaternion.identity);
                             selectedHex.typeOnCase = TypeOnCase.Root;
+                            selectedHex.typeItem = TypeItem.None;
                             selectedHex.ChangeMaterial(true);
                             List<Vector3Int> listAColorer = hexGrid.GetNeighboursFor(selectedHex.HexCoords);
                             for (int ii = 0; ii < listAColorer.Count; ii++)
@@ -165,13 +173,7 @@ public class SelectionManager : MonoBehaviour
                             }
 
                         }
-                        else if (selectedHex.typeItem == TypeItem.Mine)
-                        {
-                            selectedHex.team = Team.Root;
-                            Destroy(selectedHex.GoOnCase);
-                            selectedHex.GoOnCase = Instantiate(RacineGO, selectedHex.transform.position + new Vector3(0, 1, 0), Quaternion.identity);
-                            selectedHex.typeItem = TypeItem.None;
-                        }
+                        
 
 
                     }

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CreaturePlayer : MonoBehaviour
 {
@@ -14,6 +15,13 @@ public class CreaturePlayer : MonoBehaviour
     [SerializeField] public int attackCost = 1;
 
     public List<Unit> unitsOwned = new List<Unit>();
+
+    public GameObject Canvas;
+    public Image image1;
+    public Image image2;
+    public Image image3;
+    public Image image4;
+
 
     private void Awake()
     {
@@ -32,6 +40,11 @@ public class CreaturePlayer : MonoBehaviour
             unitsOwned.Add(unit);
         }
 
+    }
+
+    private void Update()
+    {
+        SetActionUI(actionPoints);
     }
 
     public void ResetActionPoints()
@@ -57,4 +70,46 @@ public class CreaturePlayer : MonoBehaviour
 
         UpdateColorCount();
     }
+
+
+
+    public void SetActionUI(int number)
+    {
+        Canvas.SetActive(true);
+        Canvas.transform.rotation = Quaternion.Euler(51, 0, 0);
+
+        if (number == 4)
+        {
+            image1.enabled = true;
+            image2.enabled = true;
+            image3.enabled = true;
+            image4.enabled = true;
+        }
+        else if (number == 3)
+        {
+            image1.enabled = false;
+            image2.enabled = true;
+            image3.enabled = true;
+            image4.enabled = true;
+        }
+        else if (number == 2)
+        {
+            image1.enabled = false;
+            image2.enabled = false;
+            image3.enabled = true;
+            image4.enabled = true;
+        }
+        else if (number == 1)
+        {
+            image1.enabled = false;
+            image2.enabled = false;
+            image3.enabled = false;
+            image4.enabled = true;
+        }
+        else
+        {
+            Canvas.SetActive(false);
+        }
+    }
+
 }

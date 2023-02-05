@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
@@ -19,6 +20,11 @@ public class Player : MonoBehaviour
     public float createRootCost = 1f;
 
     public Hex hexAssociated;
+
+    public GameObject Canvas;
+    public Image image1;
+    public Image image2;
+    public Image image3;
 
     #endregion
 
@@ -39,6 +45,10 @@ public class Player : MonoBehaviour
 
 
         hexAssociated.ChangeMaterial(true);
+    }
+    private void Update()
+    {
+       SetActionUI(actionsPoints);
     }
 
     public void TakeAction(float cost)
@@ -76,6 +86,34 @@ public class Player : MonoBehaviour
 
         UpdateColorCount();
     }
+    public void SetActionUI(float number)
+    {
+        Canvas.SetActive(true);
 
+       
+        if (number == 3)
+        {
+            image1.enabled = true;
+            image2.enabled = true;
+            image3.enabled = true;
+        }
+        else if (number == 2)
+        {
+            image1.enabled = false;
+            image2.enabled = true;
+            image3.enabled = true;
+        }
+        else if (number == 1)
+        {
+            image1.enabled = false;
+            image2.enabled = false;
+            image3.enabled = true;
+        }
+        else 
+        {
+            Canvas.SetActive(false);
+        }
+
+    }
     #endregion
 }
