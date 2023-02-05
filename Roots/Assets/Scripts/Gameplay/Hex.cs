@@ -230,7 +230,6 @@ public enum TypeRoot
 public enum TypeItem
 {
     None,
-    Mine,
     Flaque,
     Pixels
 
