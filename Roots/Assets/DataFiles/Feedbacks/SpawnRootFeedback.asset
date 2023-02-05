@@ -31,8 +31,8 @@ MonoBehaviour:
       audioData: {fileID: 0}
     feedbackInstantiateObject:
       IsActive: 1
-      objectToInstantiate: {fileID: 0}
-      objectPositionOffset: {x: 0, y: 0, z: 0}
+      objectToInstantiate: {fileID: 8426447070996500076, guid: 9da775989aaee1c4c90d1a98f9705b74, type: 3}
+      objectPositionOffset: {x: 10, y: 10, z: 10}
     feedbackChangeColorSprite:
       IsActive: 1
       newSpriteColor: {r: 0, g: 0, b: 0, a: 0}
