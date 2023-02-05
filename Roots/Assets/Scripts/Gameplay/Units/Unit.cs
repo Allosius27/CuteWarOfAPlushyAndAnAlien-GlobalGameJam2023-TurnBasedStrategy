@@ -1,3 +1,4 @@
+using AllosiusDevCore;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -10,7 +11,8 @@ public class Unit : MonoBehaviour
 
     public GlowHighlight glowHighlight { get; protected set; }
     private Queue<Vector3> pathPositions = new Queue<Vector3>();
-
+    public FeedbacksData feedbacksData;
+    public FeedbacksReader FeedbacksReader;
     #endregion
 
     #region Properties
@@ -81,7 +83,19 @@ public class Unit : MonoBehaviour
         Debug.Log("MoveThroughPath");
         pathPositions = new Queue<Vector3>(currentPath);
         Vector3 firstTarget = pathPositions.Dequeue();
+        StartCoroutine( SpawnFb());
         StartCoroutine(RotationCoroutine(firstTarget, rotationDuration));
+    }
+
+    private IEnumerator SpawnFb()
+    {
+        int i = 5;
+        while (i!=0)
+        {
+            i--;
+            FeedbacksReader.ReadFeedback(feedbacksData);
+            yield return new WaitForSeconds(0.5f);
+        }
     }
 
     private IEnumerator RotationCoroutine(Vector3 endPosition, float rotationDuration)
@@ -117,6 +131,8 @@ public class Unit : MonoBehaviour
             timeElapsed += Time.deltaTime;
             float lerpStep = timeElapsed / movementDuration;
             transform.position = Vector3.Lerp(startPosition, endPosition, lerpStep);
+            
+
             yield return null;
         }
         transform.position = endPosition;

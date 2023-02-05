@@ -1,3 +1,4 @@
+using AllosiusDevCore;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -73,7 +74,6 @@ public class MovementSystem : MonoBehaviour
         {
             StartCoroutine(CoroutineColoration(hexPosition));
         }
-
     }
 
     private IEnumerator CoroutineColoration(Vector3Int hexPosition)
