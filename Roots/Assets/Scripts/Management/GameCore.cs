@@ -106,7 +106,6 @@ public class GameCore : AllosiusDevUtilities.Singleton<GameCore>
     }
 
 
-    [ContextMenu("test")]
     public void SpawnItem()
     {
         if (1f *100 > Random.Range(1, 100))
@@ -114,7 +113,7 @@ public class GameCore : AllosiusDevUtilities.Singleton<GameCore>
             Vector3 pos = new Vector3(Random.Range(leftTop.position.x, rightBotom.position.x), 0, Random.Range(rightBotom.position.z, leftTop.position.z));
             Vector3Int vector3Int = HexCoordinates.ConvertPositionToOffset(pos);
             Hex actualTile = hexGrid.GetTileAt(vector3Int);
-            if (actualTile==null)
+            if (actualTile==null || actualTile.typeOnCase==TypeOnCase.Player || actualTile.typeOnCase==TypeOnCase.Enemy)
             {
                 return;
             }
