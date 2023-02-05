@@ -13,6 +13,8 @@ public class CreaturePlayer : MonoBehaviour
     [SerializeField] public int movementCost = 1;
     [SerializeField] public int attackCost = 1;
 
+    public List<Unit> unitsOwned = new List<Unit>();
+
     private void Awake()
     {
         _baseActionPoints = actionPoints;
@@ -23,6 +25,12 @@ public class CreaturePlayer : MonoBehaviour
     private void Start()
     {
         UpdateColorCount();
+
+        Unit unit = GetComponent<Unit>();
+        if(unit != null && unitsOwned.Contains(unit) == false)
+        {
+            unitsOwned.Add(unit);
+        }
 
     }
 

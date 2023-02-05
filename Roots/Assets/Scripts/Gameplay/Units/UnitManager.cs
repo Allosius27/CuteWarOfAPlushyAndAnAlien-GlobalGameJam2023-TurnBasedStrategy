@@ -10,12 +10,12 @@ public class UnitManager : MonoBehaviour
     [SerializeField]
     private MovementSystem movementSystem;
 
-    
+    public GameObject GoMine;
 
     [SerializeField]
     public Unit selectedUnit;
     private Hex previouslySelectedHex;
-
+    Hex selectedHex;
     public void HandleUnitSelected(GameObject unit)
     {
         if (GameCore.Instance.EnemiesTurn == false)
@@ -60,6 +60,23 @@ public class UnitManager : MonoBehaviour
             ClearOldSelection();
             return true;
         }
+
+        //if (GameCore.Instance.EnemiesTurn)
+        //{
+        //    if (this.selectedUnit == unitReference || GameCore.Instance.creaturePlayer.unitsOwned.Contains(unitReference))
+        //    {
+        //        ClearOldSelection();
+        //        return true;
+        //    }
+        //}
+        //else
+        //{
+        //    if (this.selectedUnit == unitReference)
+        //    {
+        //        ClearOldSelection();
+        //        return true;
+        //    }
+        //}
         return false;
     }
 
@@ -70,7 +87,7 @@ public class UnitManager : MonoBehaviour
             return;
         }
 
-        Hex selectedHex = hexGO.GetComponent<Hex>();
+        selectedHex = hexGO.GetComponent<Hex>();
 
         if(selectedUnit.cell != null)
         {
@@ -178,6 +195,62 @@ public class UnitManager : MonoBehaviour
 
     private void ResetTurn(Unit selectedUnit)
     {
+        if (selectedHex.typeOnCase == TypeOnCase.Item ) 
+        {
+            if (selectedHex.typeItem == TypeItem.Flaque)
+            {
+                Destroy(selectedHex.GoOnCase);
+                selectedHex.typeOnCase = TypeOnCase.None;
+                selectedHex.team = Team.Creature;
+                selectedHex.ChangeMaterial(false);
+                List<Vector3Int> listAColorer = hexGrid.GetNeighboursFor(selectedHex.HexCoords);
+                for (int ii = 0; ii < listAColorer.Count; ii++)
+                {
+                    hexGrid.GetTileAt(listAColorer[ii]).typeItem = TypeItem.None;
+                    hexGrid.GetTileAt(listAColorer[ii]).typeOnCase = TypeOnCase.None;
+                    hexGrid.GetTileAt(listAColorer[ii]).team = Team.Creature;
+                    hexGrid.GetTileAt(listAColorer[ii]).ChangeMaterial(false);
+                }
+            }
+            else if (selectedHex.typeItem == TypeItem.Pixels)
+            {
+                Destroy(selectedHex.GoOnCase);
+                selectedHex.typeOnCase = TypeOnCase.None;
+                selectedHex.typeItem = TypeItem.None;
+                selectedHex.team = Team.Creature;
+                selectedHex.ChangeMaterial(false);
+
+                for (int ii = 0; ii < 10; ii++)
+                {
+                    Vector3 pos = new Vector3(Random.Range(GameCore.Instance.leftTop.position.x, GameCore.Instance.rightBotom.position.x), 0, Random.Range(GameCore.Instance.rightBotom.position.z, GameCore.Instance.leftTop.position.z));
+                    Vector3Int vector3Int = HexCoordinates.ConvertPositionToOffset(pos);
+                    Hex actualTile = hexGrid.GetTileAt(vector3Int);
+                    if (actualTile != null)
+                    {
+                        actualTile.typeOnCase = TypeOnCase.None;
+                        actualTile.typeItem = TypeItem.None;
+                        actualTile.team = Team.Creature;
+                        actualTile.ChangeMaterial(false);
+                    }
+                    
+                }
+
+            }
+            else if (selectedHex.typeItem == TypeItem.Mine)
+            {
+                selectedHex.team = Team.Creature;
+                Destroy(selectedHex.GoOnCase);
+                selectedHex.GoOnCase = Instantiate(GoMine, selectedHex.transform.position + new Vector3(0, 1, 0), Quaternion.identity);
+                selectedHex.typeItem = TypeItem.None;
+            }
+
+
+        }
+
+
+
+
+
 
         selectedUnit.MovementFinished -= ResetTurn;
         GameCore.Instance.CheckEnemiesTurnState();
