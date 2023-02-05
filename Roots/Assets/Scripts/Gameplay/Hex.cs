@@ -28,6 +28,8 @@ public class Hex : MonoBehaviour
     public GameObject ActionUI;
 
     public MeshRenderer meshColor;
+    public MeshStruct[] meshs;
+    
 
     [HideInInspector] public Button Action1;//
     [HideInInspector] public Button Action2;//
@@ -59,6 +61,19 @@ public class Hex : MonoBehaviour
     {
         _hexCoordinates = GetComponent<HexCoordinates>();
         _glowHighlight = GetComponent<GlowHighlight>();
+
+        if(meshs.Length > 0)
+        {
+            for (int i = 0; i < meshs.Length; i++)
+            {
+                if (meshs[i].parent.activeSelf)
+                {
+                    meshColor = meshs[i].mesh;
+                    break;
+                }
+            }
+        }
+        
     }
     private void Start()
     {
@@ -233,4 +248,11 @@ public enum TypeItem
     Flaque,
     Pixels
 
+}
+
+[Serializable]
+public struct MeshStruct
+{
+    public MeshRenderer mesh;
+    public GameObject parent;
 }
