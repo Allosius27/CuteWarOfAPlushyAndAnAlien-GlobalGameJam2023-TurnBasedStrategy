@@ -201,6 +201,7 @@ public class UnitManager : MonoBehaviour
             {
                 Destroy(selectedHex.GoOnCase);
                 selectedHex.typeOnCase = TypeOnCase.None;
+                selectedHex.typeItem = TypeItem.None;
                 selectedHex.team = Team.Creature;
                 selectedHex.ChangeMaterial(false);
                 List<Vector3Int> listAColorer = hexGrid.GetNeighboursFor(selectedHex.HexCoords);
@@ -236,13 +237,7 @@ public class UnitManager : MonoBehaviour
                 }
 
             }
-            else if (selectedHex.typeItem == TypeItem.Mine)
-            {
-                selectedHex.team = Team.Creature;
-                Destroy(selectedHex.GoOnCase);
-                selectedHex.GoOnCase = Instantiate(GoMine, selectedHex.transform.position + new Vector3(0, 1, 0), Quaternion.identity);
-                selectedHex.typeItem = TypeItem.None;
-            }
+            
 
 
         }
