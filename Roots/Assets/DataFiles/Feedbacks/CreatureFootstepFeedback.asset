@@ -32,7 +32,7 @@ MonoBehaviour:
     feedbackInstantiateObject:
       IsActive: 1
       objectToInstantiate: {fileID: 6737219715496651631, guid: e56eedeeaa218df43af87bd95e81d715, type: 3}
-      objectPositionOffset: {x: 0, y: 5, z: 0}
+      objectPositionOffset: {x: 0, y: 2, z: 0}
     feedbackChangeColorSprite:
       IsActive: 1
       newSpriteColor: {r: 0, g: 0, b: 0, a: 0}

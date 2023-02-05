@@ -39,14 +39,14 @@ public class GameCanvasManager : MonoBehaviour
         {
             victoryPortrait.sprite = rootPlayerIcon.sprite;
             rootPlayerNumberColor.gameObject.SetActive(true);
-            rootPlayerNumberColor.text = rootPlayerScoreText.text;
+            rootPlayerNumberColor.text = GameCore.Instance.player.CurrentColorOwned.ToString();
             creaturePlayerNumberColor.gameObject.SetActive(false);
         }
         else
         {
             victoryPortrait.sprite = rootPlayerIcon.sprite;
             creaturePlayerNumberColor.gameObject.SetActive(true);
-            creaturePlayerNumberColor.text = creaturePlayerScoreText.text;
+            creaturePlayerNumberColor.text = GameCore.Instance.creaturePlayer.CurrentColorOwned.ToString();
             rootPlayerNumberColor.gameObject.SetActive(false);
         }
     }

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using AllosiusDevCore;
 
 public class SelectionManager : MonoBehaviour
 {
@@ -28,6 +29,10 @@ public class SelectionManager : MonoBehaviour
     public HexGrid hexGrid;
 
     public GameObject RacineGO;
+
+    public FeedbacksData SpawnRoot;
+    public FeedbacksData Splash;
+    public FeedbacksData Pixel;
 
     #endregion
 
@@ -130,7 +135,7 @@ public class SelectionManager : MonoBehaviour
 
                             selectedHex.ChangeMaterial(true);
                             GameCore.Instance.player.TakeAction(GameCore.Instance.player.createRootCost);
-
+                            selectedHex.gameObject.GetComponent<FeedbacksReader>().ReadFeedback(SpawnRoot);
                             return;
                         }
                             
@@ -141,6 +146,8 @@ public class SelectionManager : MonoBehaviour
 
                         if (selectedHex.typeItem == TypeItem.Flaque)
                         {
+                            //Feedback
+                            selectedHex.gameObject.GetComponent<FeedbacksReader>().ReadFeedback(Splash);
                             Destroy(selectedHex.GoOnCase);
                             selectedHex.GoOnCase = Instantiate(RacineGO, selectedHex.transform.position + new Vector3(0, 1, 0), Quaternion.identity);
                             selectedHex.typeOnCase = TypeOnCase.Root;
@@ -153,10 +160,14 @@ public class SelectionManager : MonoBehaviour
                                 hexGrid.GetTileAt(listAColorer[ii]).typeOnCase = TypeOnCase.Root;
                                 hexGrid.GetTileAt(listAColorer[ii]).ChangeMaterial(true);
                                 hexGrid.GetTileAt(listAColorer[ii]).GoOnCase = Instantiate(RacineGO, hexGrid.GetTileAt(listAColorer[ii]).transform.position + new Vector3(0, 1, 0), Quaternion.identity);
+                                hexGrid.GetTileAt(listAColorer[ii]).gameObject.GetComponent<FeedbacksReader>().ReadFeedback(Pixel);
+
                             }
                         }
                         else if (selectedHex.typeItem == TypeItem.Pixels)
                         {
+                            selectedHex.gameObject.GetComponent<FeedbacksReader>().ReadFeedback(Pixel);
+
                             Destroy(selectedHex.GoOnCase);
                             selectedHex.GoOnCase = Instantiate(RacineGO, selectedHex.transform.position + new Vector3(0, 1, 0), Quaternion.identity);
                             selectedHex.typeOnCase = TypeOnCase.Root;
@@ -172,6 +183,8 @@ public class SelectionManager : MonoBehaviour
                                 {
                                     return;
                                 }
+                                actualTile.gameObject.GetComponent<FeedbacksReader>().ReadFeedback(Pixel);
+
                                 actualTile.typeOnCase = TypeOnCase.Root;
                                 actualTile.typeItem = TypeItem.None;
                                 actualTile.ChangeMaterial(true);

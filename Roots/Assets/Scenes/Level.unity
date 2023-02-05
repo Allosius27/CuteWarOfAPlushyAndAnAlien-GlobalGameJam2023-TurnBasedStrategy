@@ -13656,7 +13656,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 520319954418169939, guid: 495cad4942c24204aad033b28cfe7529, type: 3}
   m_PrefabInstance: {fileID: 1467140688611299652}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1550570530}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 25d20a2e36d43ef4a9c30665a91c0b60, type: 3}
@@ -14372,6 +14372,25 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e99d2104a4c5dd246b1cf4981894dafd, type: 3}
+--- !u!1 &1550570530 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1467140687529424570, guid: 495cad4942c24204aad033b28cfe7529, type: 3}
+  m_PrefabInstance: {fileID: 1467140688611299652}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1550570531
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1550570530}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d09d5344dfb9694cad8f68dd545a158, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spriteRenderer: {fileID: 0}
+  animator: {fileID: 0}
 --- !u!1001 &1552896657
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -19813,6 +19832,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 5949624170632454, guid: f9b18c9180d0a454e9a0dab9e43e58b6, type: 3}
     - target: {fileID: 4272769641224169836, guid: d267105a986060f409c780f546346a9e, type: 3}
+      propertyPath: SpawnRoot
+      value: 
+      objectReference: {fileID: 11400000, guid: 3ca49b9dee0dd5f45b8bf759b0aab4f5, type: 2}
+    - target: {fileID: 4272769641224169836, guid: d267105a986060f409c780f546346a9e, type: 3}
       propertyPath: playerHex
       value: 
       objectReference: {fileID: 1893377653}
@@ -19908,6 +19931,14 @@ PrefabInstance:
       propertyPath: cell
       value: 
       objectReference: {fileID: 1234281770}
+    - target: {fileID: 520319954418169939, guid: 495cad4942c24204aad033b28cfe7529, type: 3}
+      propertyPath: feedbacksData
+      value: 
+      objectReference: {fileID: 11400000, guid: bcfdbbd2e2a4e92419fe40d4aac66fff, type: 2}
+    - target: {fileID: 520319954418169939, guid: 495cad4942c24204aad033b28cfe7529, type: 3}
+      propertyPath: FeedbacksReader
+      value: 
+      objectReference: {fileID: 1550570531}
     - target: {fileID: 1416157730579650426, guid: 495cad4942c24204aad033b28cfe7529, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 

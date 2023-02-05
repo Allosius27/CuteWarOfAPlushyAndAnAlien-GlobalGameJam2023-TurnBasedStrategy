@@ -7142,7 +7142,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 617237895}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 20.5, y: 0, z: -15.2}
+  m_LocalPosition: {x: 18.31, y: 0, z: -9.85}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -9894,9 +9894,21 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5715941093626924658, guid: 53e5dc0a374771046a829d1fb4fe3d86, type: 3}
+      propertyPath: meshColor
+      value: 
+      objectReference: {fileID: 1973293403}
+    - target: {fileID: 6661981001621926094, guid: 53e5dc0a374771046a829d1fb4fe3d86, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8649169138940977531, guid: 53e5dc0a374771046a829d1fb4fe3d86, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9170241863588094401, guid: 53e5dc0a374771046a829d1fb4fe3d86, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 53e5dc0a374771046a829d1fb4fe3d86, type: 3}
@@ -12409,7 +12421,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 934765206}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.93, y: 0, z: -0.24}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -23268,6 +23280,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 692779696}
     m_Modifications:
+    - target: {fileID: 51212987053263026, guid: 53e5dc0a374771046a829d1fb4fe3d86, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3913280042127320894, guid: 53e5dc0a374771046a829d1fb4fe3d86, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -27048,6 +27064,11 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 5586391448000633420, guid: 53e5dc0a374771046a829d1fb4fe3d86, type: 3}
   m_PrefabInstance: {fileID: 544949293}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &1973293403 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 5148986687685972251, guid: 53e5dc0a374771046a829d1fb4fe3d86, type: 3}
+  m_PrefabInstance: {fileID: 799152429}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1975353422
 PrefabInstance:
