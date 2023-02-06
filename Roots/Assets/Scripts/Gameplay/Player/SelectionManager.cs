@@ -210,25 +210,25 @@ public class SelectionManager : MonoBehaviour
 
     public void HandleRightClick(Vector3 mousePosition) //Destroy
     {
-        previousHex = selectedHex;
-        GameObject result;
-        if (FindTarget(mousePosition, out result))
-        {
-            Debug.Log("Find Target " + result.name);
-            selectedHex = result.GetComponent<Hex>();
+        //previousHex = selectedHex;
+        //GameObject result;
+        //if (FindTarget(mousePosition, out result))
+        //{
+        //    Debug.Log("Find Target " + result.name);
+        //    selectedHex = result.GetComponent<Hex>();
 
-            if (selectedHex.typeOnCase == TypeOnCase.Root)
-            {
-                Destroy(selectedHex.GoOnCase);
-                selectedHex.typeOnCase = TypeOnCase.None;
-                selectedHex.hexType = HexType.Default;
+        //    if (selectedHex.typeOnCase == TypeOnCase.Root)
+        //    {
+        //        Destroy(selectedHex.GoOnCase);
+        //        selectedHex.typeOnCase = TypeOnCase.None;
+        //        selectedHex.hexType = HexType.Default;
 
 
-                selectedHex.NeutralMaterial();
+        //        selectedHex.NeutralMaterial();
 
-                DestroyNotConnectedTiles();
-            }
-        }
+        //        DestroyNotConnectedTiles();
+        //    }
+        //}
     }
 
     public void HandleDestruction(Hex hex)

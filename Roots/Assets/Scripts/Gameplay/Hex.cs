@@ -178,7 +178,7 @@ public class Hex : MonoBehaviour
         }
         else
         {
-            //meshColor.material = creatureMat;
+            meshColor.material = creatureMat;
             //(CotonGO, transform.position + new Vector3(0, 1, 0), Quaternion.identity);
 
             for (int i = 0; i < CotonGO.Count; i++)
